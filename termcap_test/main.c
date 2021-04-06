@@ -7,7 +7,8 @@
 # define BACKSPACE 127
 # define LEFT_ARROW 4479771
 # define RIGHT_ARROW 4414235
-
+# define UP_ARROW 4283163
+# define DOWN_ARROW 4348699
 int	nbr_length(int n)
 {
 	int	i = 0;
