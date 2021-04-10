@@ -8,7 +8,7 @@ LIBS = -L $(LIBDIR) -lft
 
 HEADER = -I includes -I $(LIBDIR)
 CC = gcc
-CFLAG =  -Wall -Wextra -Werror #-lncurses
+CFLAG =   -lncurses #-Wall -Wextra -Werror
 
 OBJ = $(SRCS:.c=.o)
 

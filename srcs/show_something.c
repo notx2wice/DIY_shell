@@ -6,26 +6,24 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:55:23 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/05 15:55:44 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/09 18:44:43 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ascii_art(void)
+void	fd_printf(char *str)
 {
-	printf(" ::::::::  :::       ::: :::::::::: :::::::::: :::::::::::\n");
-	printf(":+:    :+: :+:       :+: :+:        :+:            :+:    \n");
-	printf("+:+        +:+       +:+ +:+        +:+            +:+    \n");
-	printf("+#++:++#++ +#+  +:+  +#+ +#++:++#   +#++:++#       +#+    \n");
-	printf("       +#+ +#+ +#+#+ +#+ +#+        +#+            +#+    \n");
-	printf("#+#    #+#  #+#+# #+#+#  #+#        #+#            #+#    \n");
-	printf(" ########    ###   ###   ########## ##########     ###    \n");
-	printf("                                    :::     ::::::::      \n");
-	printf("                                   :+:     :+:    :+:     \n");
-	printf("                                  +:+ +:+        +:+      \n");
-	printf("                                 +#+  +:+      +#+        \n");
-	printf("                                +#+#+#+#+#+  +#+          \n");
-	printf("   eaten by ukim & seapark            #+#   #+#           \n");
-	printf("                                      ###  ##########     \n");
+	int idx;
+
+	while(str[idx])
+	{
+		write(0, &str[idx], 1);
+		idx++;
+	}
+}
+
+void	print_prompt(void)
+{
+	write(1, "mini> ", 6);
 }
