@@ -8,7 +8,7 @@ LIBS = -L $(LIBDIR) -lft
 
 HEADER = -I includes -I $(LIBDIR)
 CC = gcc
-CFLAG =   -lncurses #-Wall -Wextra -Werror
+CFLAG =   -lncurses -fsanitize=address#-Wall -Wextra -Werror
 
 OBJ = $(SRCS:.c=.o)
 

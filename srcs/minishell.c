@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/10 22:35:39 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/11 15:28:51 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ t_all	g_all;
 void	init_term(void)
 {
 	char	*name;
+	char	*env;
 
-	name = "xterm";
-	tgetent(NULL, name);
+	//env = getenv("TERM");
+	//write(1, env, ft_strlen(env));
+	//if (env == NULL)
+	env = "xterm";
+	tgetent(NULL, env);
 	setupterm(NULL, STDOUT_FILENO, NULL);
 	tcgetattr(0, &g_all.tc.term);
 	g_all.tc.term.c_lflag &= ~ICANON;
@@ -102,8 +106,19 @@ void	get_cursor_position(int *col, int *rows)
 
 void	delete_end(int *col, int *row, char *cm, char *ce)
 {
-	if (*col != 0)
+	if (*col > 6)
 		--(*col);
+	char *c;
+	char *r;
+
+	c = ft_itoa(*col);
+	r = ft_itoa(*row);
+	write(1,"\n", 1);
+	write(1, c, ft_strlen(c));
+	write(1," ", 1);
+	write(1, r, ft_strlen(r));
+	write(1,"\n", 1);
+
 	tputs(tgoto(cm, *col, *row), 1, putchar_tc);
 	tputs(ce, 1, putchar_tc);
 }
@@ -118,7 +133,7 @@ int		main(int ac, char **av, char **env)
 	signal(SIGINT, sighandler);
 	init_term();
 	print_prompt();
-	while (read(0, &c, sizeof(c)))
+	while (read(0, &c, sizeof(int)))
 	{	
 		get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
 		if (c == EOF_KEY)
@@ -129,7 +144,7 @@ int		main(int ac, char **av, char **env)
 			write(1, "cntl + d", ft_strlen("cntl + d"));
 		}
 		else if (c == BACKSPACE)
-			delete_end(g_all.tc.curcol, &g_all.tc.currow, g_all.tc.cm, g_all.tc.ce);
+			delete_end(&g_all.tc.curcol, &g_all.tc.currow, g_all.tc.cm, g_all.tc.ce);
 		else
 		{
 			g_all.tc.curcol++;
