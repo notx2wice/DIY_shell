@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/12 18:17:28 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/12 20:55:36 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ int					main(int ac, char **av, char **env)
 	signal(SIGQUIT, sighandler);
 	signal(SIGINT, sighandler);
 	init_all();
+	g_all.hist_tmp = make_hs_node();
 	print_prompt();
 	while (read(1, &c, sizeof(int)))
 	{
 		if (c == EOF_KEY) // cntl + d
 		{
-		
+			write(1, "exit\n", 5);
+			exit(0);
 		}
 		else if (c == UP_ARROW)
 		{
@@ -62,8 +64,7 @@ int					main(int ac, char **av, char **env)
 		else
 		{
 			write(1, &c, 1);
-			g_all.tmp_input.tcarr[g_all.tmp_input.top] = (char)c;
-			g_all.tmp_input.top++;
+			g_all.hist_tmp->data.tcarr[g_all.hist_tmp->data.top++] = (char)c;
 		}
 		c = 0;
 	}

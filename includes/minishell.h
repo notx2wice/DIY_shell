@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/12 18:30:26 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/12 20:48:56 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define UP_ARROW 4283163
 # define DOWN_ARROW 4348699
 # define NEXT_LINE 10
+# define BUFFS 200
 
 typedef struct		s_minishell
 {
@@ -83,10 +84,11 @@ typedef struct		s_termcap
 typedef struct		s_all
 {
 	t_hist			*hist_start;
+	t_hist			*hist_end;
 	t_hist			*hist_now;
 	t_termcap		tc;
 	t_minishell		minishell;
-	t_tmp_input		tmp_input;
+	t_hist			*hist_tmp;
 }					t_all;
 
 extern t_all		g_all;
@@ -99,6 +101,12 @@ void		get_cursor_position(int *col, int *rows);
 void		delete_end(int *col, int *row, char *cm, char *ce);
 //init
 void		init_all(void);
-void		init_temp(void);
 void		init_term(void);
+//double list
+void		init_hs_node(t_hist *node);
+t_hist		*make_hs_node();
+void		add_back_hs_node(t_hist **head, t_hist *added);
+void		node_prev(t_hist **now);
+void		node_next(t_hist **now);
+
 #endif
