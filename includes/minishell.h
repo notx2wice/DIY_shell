@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/10 22:19:10 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/12 18:30:26 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define RIGHT_ARROW 4414235
 # define UP_ARROW 4283163
 # define DOWN_ARROW 4348699
+# define NEXT_LINE 10
 
 typedef struct		s_minishell
 {
@@ -53,49 +54,51 @@ typedef struct		s_minishell
 	char			**bin;
 }					t_minishell;
 
+typedef struct		s_tmp_input
+{
+	char			*tcarr;
+	int				max_len;
+	int				top;
+}					t_tmp_input;
+
 typedef struct		s_hist
 {
-	char			*str;
+	t_tmp_input		data;
 	struct s_hist	*prev;
 	struct s_hist	*next;
-	char			*line;
 }					t_hist;
 
 typedef struct		s_termcap
 {
 	struct termios	term;
-	struct termios	term_backup;
-	char			*backup_cmd;
-	char			*copy_cmd;
-	int				start_row;
-	int				start_col;
-	int				col;
-	int				row;
-	int				plen;
-	int				cur_pos;
+	int				col;//max term col
+	int				row;//max term row
+	int				prompt_row;//the latest prompt row
 	int				currow;
 	int				curcol;
-	int				lenlen;
-	int				rowoffset;
-	int				mod_offset;
-	int				endcol;
-	int				endrow;
 	char			*cm;
 	char			*ce;
-	char			*dl;
-	long			backspace;
 }					t_termcap;
 
 typedef struct		s_all
 {
-	t_hist			hist;
-	t_hist			cursor_hist;
+	t_hist			*hist_start;
+	t_hist			*hist_now;
 	t_termcap		tc;
 	t_minishell		minishell;
+	t_tmp_input		tmp_input;
 }					t_all;
 
 extern t_all		g_all;
 
 void		print_prompt(void);
-
+int			putchar_tc(int tc);
+int			nbr_length(int n);
+void		cursor_win(void);
+void		get_cursor_position(int *col, int *rows);
+void		delete_end(int *col, int *row, char *cm, char *ce);
+//init
+void		init_all(void);
+void		init_temp(void);
+void		init_term(void);
 #endif

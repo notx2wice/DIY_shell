@@ -1,5 +1,6 @@
 NAME = minishell
-SRC = minishell.c show_something.c
+SRC = minishell.c show_something.c termcap.c cursor_move.c \
+	  init_all.c #double_list_util.c
 DIR = ./srcs/
 
 SRCS = $(addprefix $(DIR), $(SRC))
@@ -8,7 +9,7 @@ LIBS = -L $(LIBDIR) -lft
 
 HEADER = -I includes -I $(LIBDIR)
 CC = gcc
-CFLAG =   -lncurses -fsanitize=address#-Wall -Wextra -Werror
+CFLAG = -lncurses -fsanitize=address#-Wall -Wextra -Werror
 
 OBJ = $(SRCS:.c=.o)
 
