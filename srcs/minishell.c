@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/12 20:55:36 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/13 17:09:44 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,19 @@ void				sighandler(int sig_num)
 int					main(int ac, char **av, char **env)
 {
 	unsigned int	c;
+	t_hist			*last;
+	t_hist			*temp;
 	(void)ac;
 	(void)av;
 	(void)env;
+	
+	last = NULL;
 	signal(SIGQUIT, sighandler);
 	signal(SIGINT, sighandler);
 	init_all();
-	g_all.hist_tmp = make_hs_node();
+	g_all.hist_now = make_hs_node();
+	add_back_hs_node(&g_all.hist_start, g_all.hist_now);
+	last = g_all.hist_now;
 	print_prompt();
 	while (read(1, &c, sizeof(int)))
 	{
@@ -46,6 +52,7 @@ int					main(int ac, char **av, char **env)
 		}
 		else if (c == UP_ARROW)
 		{
+			
 		}
 		else if (c == DOWN_ARROW)
 		{
@@ -61,10 +68,10 @@ int					main(int ac, char **av, char **env)
 			write(1, "\n", 1);
 			print_prompt();
 		}
-		else
+		else // maybe c should have short range for printable char
 		{
 			write(1, &c, 1);
-			g_all.hist_tmp->data.tcarr[g_all.hist_tmp->data.top++] = (char)c;
+			g_all.hist_now->data.tcarr[g_all.hist_now->data.top++] = (char)c;
 		}
 		c = 0;
 	}

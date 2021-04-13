@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/12 20:48:56 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/13 16:20:36 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 # define UP_ARROW 4283163
 # define DOWN_ARROW 4348699
 # define NEXT_LINE 10
-# define BUFFS 200
-
+# define BUFFS 4000
+# define PROMPT_SIZE 6
 typedef struct		s_minishell
 {
 	char			*name;
@@ -84,11 +84,11 @@ typedef struct		s_termcap
 typedef struct		s_all
 {
 	t_hist			*hist_start;
-	t_hist			*hist_end;
 	t_hist			*hist_now;
+	t_hist			*thist_start;
+	t_hist			*thist_now;
 	t_termcap		tc;
 	t_minishell		minishell;
-	t_hist			*hist_tmp;
 }					t_all;
 
 extern t_all		g_all;
@@ -108,5 +108,14 @@ t_hist		*make_hs_node();
 void		add_back_hs_node(t_hist **head, t_hist *added);
 void		node_prev(t_hist **now);
 void		node_next(t_hist **now);
+void		init_hists();
+void		init_thists();
+//free things
+void		free_t_hist(t_hist **freed_hist); //free normal t_hist
+void		free_copy_thist();
+
+//histoty
+void		hist_copy();
+void		copy_process(t_hist *ori, t_hist *cpy);
 
 #endif
