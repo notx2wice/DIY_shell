@@ -6,23 +6,23 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 11:16:10 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/13 15:01:55 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/14 16:40:36 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		copy_process(t_hist *ori, t_hist *cpy)
+void		copy_process(t_hist **ori, t_hist **cpy)
 {
 	int		idx;
 
 	idx = 0;
-	while (idx <= ori->data.top)
+	while (idx <= (*ori)->data.top)
 	{
-		cpy->data.tcarr[idx] = ori->data.tcarr[idx];
+		(*cpy)->data.tcarr[idx] = (*ori)->data.tcarr[idx];
 		idx++;
 	}
-	cpy->data.top = ori->data.top;
+	(*cpy)->data.top = (*ori)->data.top;
 }
 
 void		hist_copy()
@@ -38,7 +38,7 @@ void		hist_copy()
 		while (hi)
 		{
 			temp = make_hs_node();
-			copy_process(hi, temp);
+			copy_process(&hi, &temp);
 			add_back_hs_node(&g_all.thist_start, temp);
 			hi = hi->next;
 		}

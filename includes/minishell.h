@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/13 16:20:36 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/14 16:39:55 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef struct		s_all
 	t_hist			*hist_now;
 	t_hist			*thist_start;
 	t_hist			*thist_now;
+	t_hist			*last;
+	t_hist			*temp;
 	t_termcap		tc;
 	t_minishell		minishell;
 }					t_all;
@@ -99,11 +101,13 @@ int			nbr_length(int n);
 void		cursor_win(void);
 void		get_cursor_position(int *col, int *rows);
 void		delete_end(int *col, int *row, char *cm, char *ce);
+void		just_delete_end(int *col, int *row, char *cm, char *ce);
+
 //init
 void		init_all(void);
 void		init_term(void);
 //double list
-void		init_hs_node(t_hist *node);
+void		init_hs_node(t_hist **node);
 t_hist		*make_hs_node();
 void		add_back_hs_node(t_hist **head, t_hist *added);
 void		node_prev(t_hist **now);
@@ -116,6 +120,6 @@ void		free_copy_thist();
 
 //histoty
 void		hist_copy();
-void		copy_process(t_hist *ori, t_hist *cpy);
+void		copy_process(t_hist **ori, t_hist **cpy);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:40:56 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/13 17:06:35 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/14 11:24:07 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	get_cursor_position(int *col, int *rows)
 	int		ret;
 	int		temp;
 
-	write(1, "\033[6n", 5);  //report cursor location
+	write(1, "\033[6n", 5);//report cursor location
 	ret = read(1, buf, 254);
 	buf[ret] = '\0';
 	while (buf[i])

@@ -6,19 +6,19 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:43:19 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/12 20:37:18 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/14 11:39:18 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		init_hs_node(t_hist *node)
+void		init_hs_node(t_hist **node)
 {
-	node->data.tcarr = (char*)malloc(sizeof(char) * BUFFS);
-	node->data.max_len = BUFFS;
-	node->data.top = 0;
-	node->next = NULL;
-	node->prev = NULL;
+	(*node)->data.tcarr = (char*)malloc(sizeof(char) * BUFFS);
+	(*node)->data.max_len = BUFFS;
+	(*node)->data.top = 0;
+	(*node)->next = NULL;
+	(*node)->prev = NULL;
 }
 
 t_hist		*make_hs_node()
@@ -26,7 +26,7 @@ t_hist		*make_hs_node()
 	t_hist	*temp;
 
 	temp = (t_hist*)malloc(sizeof(t_hist));
-	init_hs_node(temp);
+	init_hs_node(&temp);
 	return temp;
 }
 
