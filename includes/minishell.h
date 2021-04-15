@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/14 16:39:55 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/15 12:08:58 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			nbr_length(int n);
 void		cursor_win(void);
 void		get_cursor_position(int *col, int *rows);
 void		delete_end(int *col, int *row, char *cm, char *ce);
-void		just_delete_end(int *col, int *row, char *cm, char *ce);
+void		just_delete_end();
 
 //init
 void		init_all(void);
