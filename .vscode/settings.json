@@ -2,7 +2,5 @@
     "editor.renderWhitespace": "all",
     "files.associations": {
         "minishell.h": "c"
-    },
-    "editor.tabCompletion": "on",
-    "editor.acceptSuggestionOnEnter": "off"
+    }
 }

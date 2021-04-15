@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/15 12:08:58 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/15 15:37:27 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct		s_all
 	t_hist			*thist_start;
 	t_hist			*thist_now;
 	t_hist			*last;
+	t_hist			*tlast;
 	t_hist			*temp;
 	t_termcap		tc;
 	t_minishell		minishell;
@@ -117,9 +118,10 @@ void		init_thists();
 //free things
 void		free_t_hist(t_hist **freed_hist); //free normal t_hist
 void		free_copy_thist();
-
 //histoty
 void		hist_copy();
 void		copy_process(t_hist **ori, t_hist **cpy);
+void		link_thist_last_now();
+int			is_same_hist();
 
 #endif
