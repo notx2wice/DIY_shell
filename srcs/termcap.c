@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:40:56 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/14 11:24:07 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/17 14:29:59 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_term(void)
 	char	*name;
 	char	*env;
 
-	env = getenv("TERM");
+	//env = getenv("TERM");
 	if (env == NULL)
 		env = "xterm";
 	tgetent(NULL, env);
@@ -65,12 +65,12 @@ void	get_cursor_position(int *col, int *rows)
 {
 	int		a = 0;
 	int		i = 1;
-	char	buf[255];
+	char	buf[50];
 	int		ret;
 	int		temp;
 
 	write(1, "\033[6n", 5);//report cursor location
-	ret = read(1, buf, 254);
+	ret = read(1, buf, 49);
 	buf[ret] = '\0';
 	while (buf[i])
 	{
