@@ -1,6 +1,7 @@
 NAME = minishell
 SRC = minishell.c show_something.c termcap.c cursor_move.c \
-	  init_all.c double_list_util.c utils.c
+	  init_all.c double_list_util.c utils.c list_utils.c \
+	  list_utils2.c parsing.c free_something.c
 DIR = ./srcs/
 
 SRCS = $(addprefix $(DIR), $(SRC))

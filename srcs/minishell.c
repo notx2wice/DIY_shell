@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/17 13:05:04 by ukim             ###   ########.fr       */
+/*   Updated: 2021/04/26 15:08:42 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					is_same_hist()
 	return (1);
 }
 
-int					main(int ac, char **av, char **env)
+int					main(int ac, char **av, char *env[])
 {
 	int				c;
 	(void)ac;
@@ -52,6 +52,7 @@ int					main(int ac, char **av, char **env)
 	t_hist			*temp;
 	t_hist			*ttemp;
 	g_all.last = NULL;
+	get_env(env, &g_all.env_first);
 	signal(SIGQUIT, sighandler);
 	signal(SIGINT, sighandler);
 	init_all();
@@ -136,8 +137,10 @@ int					main(int ac, char **av, char **env)
 					continue ;
 				}
 			}
-			write(1, "\n", 1);
+			g_all.hist_now->data.tcarr[g_all.hist_now->data.top] = '\0';
+			parsing(g_all.hist_now->data.tcarr);
 			//do_cmd;
+			write(1, "\n", 1);
 			print_prompt();
 			//copy to thist;
 			free_t_hist(&g_all.thist_start);
