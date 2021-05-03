@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:22:49 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/26 14:23:28 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/02 13:10:03 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void					init_s_two(t_split_two **two)
 {
+	(*two)->cmd = NULL;
 	(*two)->cmd_first = NULL;
 	(*two)->next = NULL;
 	(*two)->pipe_flag = 0;

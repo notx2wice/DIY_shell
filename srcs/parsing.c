@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:29:54 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/26 15:30:45 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/02 13:18:08 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int				count_cmd(t_cmd_list *cmd)
+{
+	int			idx;
+
+	idx = 0;
+	while (cmd)
+	{
+		if (cmd->disable != 0)
+			idx++;
+		cmd = cmd->next;
+	}
+	cmd++;
+}
 t_split_two		*parsing(char *str_ori)
 {
 	int			idx;
@@ -392,4 +405,25 @@ t_split_two		*parsing(char *str_ori)
 	free_one(&first_cmd);
 	//free_two(&first_two);
 	//free_env(&g_all.env_first);
+	int cmd_cnt;
+	int idx;
+
+	idx = 0;
+	last_two = first_two;
+	while (last_two)
+	{
+		tmp_cmd = last_two->cmd_first;
+		cmd_cnt = count_cmd(tmp_cmd);
+		last_two->cmd = (char**)malloc(sizeof(char*) * (cmd_cnt + 1));
+		cmd_cnt = 0;
+		while (tmp_cmd)
+		{
+			if (tmp_cmd->disable == 0)
+			{
+				last_two->cmd[idx++] = tmp_cmd->str;
+				tmp_cmd->str = NULL;
+			}
+			tmp_cmd = tmp_cmd->next;
+		}
+	}
 }

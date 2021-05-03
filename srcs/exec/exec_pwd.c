@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_all.c                                         :+:      :+:    :+:   */
+/*   exec_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/12 16:20:13 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/30 10:23:26 by ukim             ###   ########.fr       */
+/*   Created: 2021/04/27 10:52:16 by ukim              #+#    #+#             */
+/*   Updated: 2021/04/27 10:59:20 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void			init_hists()
+int		exec_pwd()
 {
-	g_all.hist_now = NULL;
-	g_all.hist_start = NULL;
-}
+	char cwd[BUFFS];
 
-void			init_thists()
-{
-	g_all.thist_now = NULL;
-	g_all.thist_start = NULL;
-}
-
-void			init_all()
-{
-	g_all.exit_code = 0;
-	g_all.child = 0;
-	init_term();
-	cursor_win();
-	init_hists();
-	init_thists();
+	ft_putstr(getcwd(cwd, BUFFS));
+	write(1, "\n", 1);
+	return (0);
 }

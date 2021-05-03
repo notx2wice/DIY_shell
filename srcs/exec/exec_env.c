@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_all.c                                         :+:      :+:    :+:   */
+/*   exec_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/12 16:20:13 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/30 10:23:26 by ukim             ###   ########.fr       */
+/*   Created: 2021/04/27 10:52:08 by ukim              #+#    #+#             */
+/*   Updated: 2021/04/27 11:02:29 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void			init_hists()
+int		exec_env()
 {
-	g_all.hist_now = NULL;
-	g_all.hist_start = NULL;
-}
+	t_env	*env;
 
-void			init_thists()
-{
-	g_all.thist_now = NULL;
-	g_all.thist_start = NULL;
-}
-
-void			init_all()
-{
-	g_all.exit_code = 0;
-	g_all.child = 0;
-	init_term();
-	cursor_win();
-	init_hists();
-	init_thists();
+	env = g_all.env_first;
+	while (env)
+	{
+		if (env->value)
+		{
+			ft_putstr(env->key);
+			write(1, "=", 1);
+			ft_putstr(env->value);
+			write(1, "\n", 1);
+		}
+		env = env->next;
+	}
+	return (0);
 }

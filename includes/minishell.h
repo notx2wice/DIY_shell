@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/26 15:14:12 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/03 13:13:16 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define NEXT_LINE 10
 # define BUFFS 4000
 # define PROMPT_SIZE 6
+# define EXIT_SUCCESS 0
 
 typedef struct			s_redir
 {
@@ -84,25 +85,10 @@ typedef struct			s_split_two
 	int					pipe_flag;
 	int					termi_flag;
 	t_cmd_list			*cmd_first;
+	char				**cmd;
 	struct s_redir		*redir_first;
 	struct s_split_two	*next;
 }						t_split_two;
-
-typedef struct			s_minishell
-{
-	char				*name;
-	char				*curdir;
-	long int			exit;
-	char				*line;
-	int					quit;
-	int					quit2;
-	int					count;
-	int					scope_p;
-	int					forked;
-	char				*exit_str;
-	char				**env_array;
-	char				**bin;
-}						t_minishell;
 
 typedef struct			s_tmp_input
 {
@@ -140,8 +126,9 @@ typedef struct			s_all
 	t_hist				*tlast;
 	t_hist				*temp;
 	t_termcap			tc;
-	t_minishell			minishell;
 	t_env				*env_first;
+	int					child;
+	int					exit_code;
 }						t_all;
 
 extern t_all			g_all;
@@ -197,5 +184,17 @@ int			is_same_hist();
 void		get_env(char *env[], t_env **env_first);
 //parse
 t_split_two	*parsing(char *str_ori);
+//exec
+int			get_cmd_list_length(t_split_two *cmd);
+void		lst_change_add_env(char *key, char *val);
+int			chk_arg_cnt_env(void);
+int			chk_arg_cnt(t_split_two *cmd);
+int			exec_cd(t_split_two *cmd);
+int			exec_echo(t_split_two *cmd);
+int			exec_env();
+int			exec_exit(t_split_two *cmd);
+int			exec_export(t_split_two *cmd);
+int			exec_pwd();
+int			exec_unset(t_split_two *cmd);
 
 #endif

@@ -1,35 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_all.c                                         :+:      :+:    :+:   */
+/*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/12 16:20:13 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/30 10:23:26 by ukim             ###   ########.fr       */
+/*   Created: 2021/04/30 12:27:34 by ukim              #+#    #+#             */
+/*   Updated: 2021/05/03 13:31:04 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-void			init_hists()
-{
-	g_all.hist_now = NULL;
-	g_all.hist_start = NULL;
-}
-
-void			init_thists()
-{
-	g_all.thist_now = NULL;
-	g_all.thist_start = NULL;
-}
-
-void			init_all()
-{
-	g_all.exit_code = 0;
-	g_all.child = 0;
-	init_term();
-	cursor_win();
-	init_hists();
-	init_thists();
-}
+#include "../../includes/minishell.h"
