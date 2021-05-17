@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:06 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 13:27:04 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/03 18:30:45 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	print_val(t_split_two *cmd, int i, int cnt)
 {
 	while (cmd->cmd[i])
 	{
-		ft_putstr(cmd->cmd[i]);
+		ft_putstr_fd(cmd->cmd[i], 1);
 		if (i < cnt - 1)
-			ft_putstr(" ");
+			ft_putstr_fd(" ", 1);
 		i++;
 	}
 }

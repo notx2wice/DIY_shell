@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:08 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/27 11:02:29 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/03 18:31:17 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		exec_env()
 	{
 		if (env->value)
 		{
-			ft_putstr(env->key);
+			ft_putstr_fd(env->key, 1);
 			write(1, "=", 1);
-			ft_putstr(env->value);
+			ft_putstr_fd(env->value, 1);
 			write(1, "\n", 1);
 		}
 		env = env->next;

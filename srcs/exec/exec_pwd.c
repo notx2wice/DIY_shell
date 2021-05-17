@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:16 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/27 10:59:20 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/03 18:36:48 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		exec_pwd()
 {
 	char cwd[BUFFS];
 
-	ft_putstr(getcwd(cwd, BUFFS));
+	ft_putstr_fd(getcwd(cwd, BUFFS), 1);
 	write(1, "\n", 1);
 	return (0);
 }

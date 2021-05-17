@@ -1,10 +1,18 @@
 NAME = minishell
-SRC = minishell.c show_something.c termcap.c cursor_move.c \
-	  init_all.c double_list_util.c utils.c list_utils.c \
-	  list_utils2.c parsing.c free_something.c
-DIR = ./srcs/
 
-SRCS = $(addprefix $(DIR), $(SRC))
+SRC = minishell.c show_something.c termcap.c cursor_move.c \
+		init_all.c double_list_util.c utils.c list_utils.c \
+		list_utils2.c parsing.c free_something.c error.c \
+		error2.c 
+
+EXEC = do_cmd.c do_not_built_in_cmd.c exec_cd.c exec_echo.c \
+		exec_env.c exec_exit.c exec_export.c exec_pwd.c \
+		exec_unset.c pipe.c redir.c
+
+DIR = ./srcs/
+EXECDIR = ./srcs/exec/
+
+SRCS = $(addprefix $(DIR), $(SRC)) $(addprefix $(EXECDIR), $(EXEC))
 LIBDIR = libft
 LIBS = -L $(LIBDIR) -lft
 

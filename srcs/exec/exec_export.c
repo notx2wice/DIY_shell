@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 13:13:45 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 13:26:41 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/03 18:36:32 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	print_export_sub(t_env **sort_env)
 	i = 0;
 	while (sort_env[i])
 	{
-		ft_putstr("declear -x ");
-		ft_putstr(sort_env[i]->key);
+		ft_putstr_fd("declear -x ", 1);
+		ft_putstr_fd(sort_env[i]->key, 1);
 		if (sort_env[i]->value)
 		{
 			write(1, "=\"", 2);
@@ -53,7 +53,7 @@ void	print_export_sub(t_env **sort_env)
 			{
 				if (sort_env[i]->value[j] == '\"')
 					write(1, "\\", 1);
-				ft_putchar(sort_env[i]->value[j++]);
+				ft_putchar_fd(sort_env[i]->value[j++], 1);
 			}
 			write(1, "\"", 1);
 		}
@@ -125,7 +125,7 @@ int		exec_export(t_split_two *cmd)
 	while (cmd->cmd[i])
 	{
 		if (ft_isdigit(cmd->cmd[i][0]) || cmd->cmd[i][0] == '=')
-			return (not_valueid_idt(cmd, cmd->cmd[i], 1));
+			return (not_valid_idt(cmd, cmd->cmd[i], 1));
 		put_env(cmd->cmd[i]);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 13:13:16 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/04 22:05:19 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct			s_split_two
 	char				**cmd;
 	struct s_redir		*redir_first;
 	struct s_split_two	*next;
+	int					ispath;
 }						t_split_two;
 
 typedef struct			s_tmp_input
@@ -184,6 +185,8 @@ int			is_same_hist();
 void		get_env(char *env[], t_env **env_first);
 //parse
 t_split_two	*parsing(char *str_ori);
+char		*get_env_value_by_key(char *key);
+
 //exec
 int			get_cmd_list_length(t_split_two *cmd);
 void		lst_change_add_env(char *key, char *val);
@@ -196,5 +199,22 @@ int			exec_exit(t_split_two *cmd);
 int			exec_export(t_split_two *cmd);
 int			exec_pwd();
 int			exec_unset(t_split_two *cmd);
+void		exec_command(t_split_two *now_cmd);
+void		exec_not_builtin(t_split_two *cmd);
+t_split_two	*exec_pipe(t_split_two *cmd);
+int			is_built_in(char *cmd);
+int			exec_builtin(t_split_two *cmd);
+void		exec_default_pipe(t_split_two *cmd);
+
+//error
+void	ft_error(void);
+int		not_valid_idt(t_split_two *cmd, char *arg, int err_num);
+int		no_file_error(t_split_two *cmd, int err_num);
+int		no_command_error(t_split_two *cmd, int err_num);
+int		no_home_error(t_split_two *cmd, int err_num);
+int		open_error(char *file);
+int		too_many_arg_error(t_split_two *cmd, int err_num);
+int		num_arg_error(t_split_two *cmd, int err_num);
+int		not_valid_idt(t_split_two *cmd, char *arg, int err_num);
 
 #endif

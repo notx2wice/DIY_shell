@@ -6,11 +6,11 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 09:46:00 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/30 10:46:51 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/03 18:39:22 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int		count_pipes(t_split_two *cmd)
 {
@@ -58,6 +58,14 @@ void	wait_parent(int fds[], pid_t pid[], int cnt)
 	g_all.child = 0;
 	if (WIFEXITED(status))
 		g_all.exit_code = WEXITSTATUS(status);
+}
+
+void	exec_default_pipe(t_split_two *cmd)
+{
+	if (is_built_in(cmd->cmd[0]) == 1)
+		exit(exec_builtin(cmd));
+	else
+		exec_not_builtin(cmd);
 }
 
 t_split_two	*exec_pipe(t_split_two *cmd)

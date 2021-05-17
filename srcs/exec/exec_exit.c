@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:11 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 13:12:47 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/03 18:31:52 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ int		exec_exit(t_split_two *cmd)
 	{
 		if (isdigit == 0)
 		{
-			ft_putstr("exit\n");
+			ft_putstr_fd("exit\n", 1);
 			exit(num_arg_error(cmd, 255));
 		}
 		if (cnt_arg > 2)
 		{
-			ft_putstr("exit\n");
+			ft_putstr_fd("exit\n", 1);
 			return (too_many_arg_error(cmd, 1));
 		}
-		ft_putstr("exit\n");
+		ft_putstr_fd("exit\n", 1);
 		exit(ft_atoi(cmd->cmd[1]));
 	}
-	ft_putstr("exit\n");
+	ft_putstr_fd("exit\n", 1);
 	exit(0);
 	return (EXIT_SUCCESS);
 }

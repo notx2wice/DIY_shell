@@ -6,11 +6,26 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:03 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/02 13:22:20 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/03 18:29:15 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+t_env	*new_env(char *key, char *value)
+{
+	t_env	*new;
+
+	if (!(new = (t_env *)malloc(sizeof(t_env) * 1)))
+		return (NULL);
+	new->key = ft_strdup(key);
+	if (value)
+		new->value = ft_strdup(value);
+	else
+		new->value = NULL;
+	new->next = NULL;
+	return (new);
+}
 
 char	*lst_find_env(char *key)
 {

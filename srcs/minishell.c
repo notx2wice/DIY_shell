@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/26 15:08:42 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/13 18:35:19 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int					main(int ac, char **av, char *env[])
 	
 	t_hist			*temp;
 	t_hist			*ttemp;
+	t_split_two		*now_cmd;
 	g_all.last = NULL;
 	get_env(env, &g_all.env_first);
 	signal(SIGQUIT, sighandler);
@@ -115,6 +116,7 @@ int					main(int ac, char **av, char *env[])
 					temp->prev = g_all.last->prev;
 					free_t_hist(&g_all.last);
 					g_all.last = temp;
+					g_all.hist_now = g_all.last;
 				}
 				else
 				{
@@ -125,6 +127,7 @@ int					main(int ac, char **av, char *env[])
 					temp->prev = g_all.last->prev;
 					free_t_hist(&g_all.last);
 					g_all.last = temp;
+					g_all.hist_now = g_all.last;
 				}
 			}
 			else
@@ -132,17 +135,16 @@ int					main(int ac, char **av, char *env[])
 				if (g_all.hist_now->data.top == 0)
 				{
 					write(1, "\n", 1);
-					//do_cmd;
 					write(1, "mini> ", PROMPT_SIZE);
 					continue ;
 				}
 			}
 			g_all.hist_now->data.tcarr[g_all.hist_now->data.top] = '\0';
-			parsing(g_all.hist_now->data.tcarr);
-			//do_cmd;
+			now_cmd = parsing(g_all.hist_now->data.tcarr);
+			g_all.hist_now = g_all.last;
 			write(1, "\n", 1);
+			exec_command(now_cmd);
 			print_prompt();
-			//copy to thist;
 			free_t_hist(&g_all.thist_start);
 			hist_copy();
 			link_thist_last_now();
