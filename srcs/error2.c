@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 11:14:15 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 18:41:57 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/18 14:17:16 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,8 @@ int		no_home_error(t_split_two *cmd, int err_num)
 	return (err_num);
 }
 
+void		syntax_error(void)
+{
+	ft_putstr_fd("\nmini>: syntax error with unexpected token", 1);
+	g_all.exit_code = 258;
+}

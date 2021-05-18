@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/17 21:51:13 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/18 19:12:00 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,5 +222,8 @@ int		open_error(char *file);
 int		too_many_arg_error(t_split_two *cmd, int err_num);
 int		num_arg_error(t_split_two *cmd, int err_num);
 int		not_valid_idt(t_split_two *cmd, char *arg, int err_num);
+void	syntax_error(void);
+int		is_empty_cmd(t_split_two *cmd);
+int		empty_cmd_handler(t_split_two *cmd);
 
 #endif

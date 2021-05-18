@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:40:56 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/17 14:29:59 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/18 11:40:55 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_term(void)
 	char	*name;
 	char	*env;
 
-	//env = getenv("TERM");
+	env = getenv("TERM");
 	if (env == NULL)
 		env = "xterm";
 	tgetent(NULL, env);

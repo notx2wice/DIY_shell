@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 10:52:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/17 22:34:59 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/18 19:07:55 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,34 @@ void	not_builtin_fork(t_split_two *cmd)
 	}
 }
 
+int	is_empty_cmd(t_split_two *cmd)
+{
+	if (cmd->cmd[0] == NULL)
+		return (TRUE);
+	return (FALSE);
+}
+
+int		empty_cmd_handler(t_split_two *cmd)
+{
+	if (cmd->redir_flag == TRUE)
+	{
+		if (change_redir(cmd) == -1)
+			return (1);
+		getback_redir(cmd);
+		return (0);
+	}
+	else
+	{
+		syntax_error();
+		return (258);
+	}
+}
+
 void	exec_default(t_split_two *cmd)
 {
-	if (is_built_in(cmd->cmd[0]) == TRUE)
+	if (is_empty_cmd(cmd))
+		g_all.exit_code = empty_cmd_handler(cmd);
+	else if (is_built_in(cmd->cmd[0]) == TRUE)
 		g_all.exit_code = exec_builtin(cmd);
 	else
 		not_builtin_fork(cmd);

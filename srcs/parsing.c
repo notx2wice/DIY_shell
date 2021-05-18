@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:29:54 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/17 22:30:03 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/18 14:16:06 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ t_split_two		*parsing(char *str_ori)
 				{
 					if (cmd[idx] == cmd[idx + 1])
 					{
-						printf("\ninvalid\n");// new command
+						syntax_error();
+						return NULL;
 					}
 				}
 				else
@@ -398,7 +399,7 @@ t_split_two		*parsing(char *str_ori)
 					{
 						if (tmp_cmd->next == NULL)
 						{
-							printf("syntex error\n");
+							syntax_error();
 							break;
 						}
 						tmp_cmd->disable = 1;
@@ -406,8 +407,8 @@ t_split_two		*parsing(char *str_ori)
 						tmp_cmd = tmp_cmd->next;
 						if (ft_strncmp(tmp_cmd->str, "<", 1) == 0 || ft_strncmp(tmp_cmd->str, ">", 1) == 0)
 						{
-							printf("syntex error\n");
-							break;
+							syntax_error();
+							return NULL;
 						}
 						tmp_cmd->disable = 1;
 						temp_redir->str = ft_strdup(tmp_cmd->str);
@@ -428,16 +429,16 @@ t_split_two		*parsing(char *str_ori)
 					{
 						if (tmp_cmd->next == NULL)
 						{
-							printf("syntex error\n");
-							break;
+							syntax_error();
+							return NULL;
 						}
 						tmp_cmd->disable = 1;
 						temp_redir->out_flag = 1;
 						tmp_cmd = tmp_cmd->next;
 						if (ft_strncmp(tmp_cmd->str, "<", 1) == 0 || ft_strncmp(tmp_cmd->str, ">", 1) == 0)
 						{
-							printf("syntex error\n");
-							break;
+							syntax_error();
+							return NULL;
 						}
 						tmp_cmd->disable = 1;
 						temp_redir->str = ft_strdup(tmp_cmd->str);
@@ -458,16 +459,16 @@ t_split_two		*parsing(char *str_ori)
 					{
 						if (tmp_cmd->next == NULL)
 						{
-							printf("syntex error\n");
-							break;
+							syntax_error();
+							return NULL;
 						}
 						tmp_cmd->disable = 1;
 						temp_redir->in_flag = 1;
 						tmp_cmd = tmp_cmd->next;
 						if (ft_strncmp(tmp_cmd->str, "<", 1) == 0 || ft_strncmp(tmp_cmd->str, ">", 1) == 0)
 						{
-							printf("syntex error\n");
-							break;
+							syntax_error();
+							return NULL;
 						}
 						tmp_cmd->disable = 1;
 						temp_redir->str = ft_strdup(tmp_cmd->str);

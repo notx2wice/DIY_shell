@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 09:46:00 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 18:39:22 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/18 19:13:18 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	wait_parent(int fds[], pid_t pid[], int cnt)
 
 void	exec_default_pipe(t_split_two *cmd)
 {
-	if (is_built_in(cmd->cmd[0]) == 1)
+	if (is_empty_cmd(cmd))
+		exit(empty_cmd_handler(cmd));
+	else if (is_built_in(cmd->cmd[0]) == 1)
 		exit(exec_builtin(cmd));
 	else
 		exec_not_builtin(cmd);

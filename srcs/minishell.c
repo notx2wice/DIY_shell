@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/13 18:35:19 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/18 14:14:48 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int					main(int ac, char **av, char *env[])
 		if (c == EOF_KEY) // cntl + d
 		{
 			write(1, "exit\n", 5);
-			exit(0);
+			exit(0); // 종료시 종료 인자 전달
 		}
 		else if (c == UP_ARROW)
 		{
@@ -139,11 +139,22 @@ int					main(int ac, char **av, char *env[])
 					continue ;
 				}
 			}
+			if (g_all.hist_now->data.top == 0)
+			{
+				free_t_hist(&g_all.thist_start);
+				hist_copy();
+				link_thist_last_now();
+				write(1, "\n", 1);
+				write(1, "mini> ", PROMPT_SIZE);
+				g_all.hist_now = g_all.last;
+				continue ;
+			}
 			g_all.hist_now->data.tcarr[g_all.hist_now->data.top] = '\0';
 			now_cmd = parsing(g_all.hist_now->data.tcarr);
 			g_all.hist_now = g_all.last;
 			write(1, "\n", 1);
-			exec_command(now_cmd);
+			if (now_cmd != NULL)
+				exec_command(now_cmd);
 			print_prompt();
 			free_t_hist(&g_all.thist_start);
 			hist_copy();
