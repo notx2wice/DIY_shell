@@ -226,4 +226,8 @@ void	syntax_error(void);
 int		is_empty_cmd(t_split_two *cmd);
 int		empty_cmd_handler(t_split_two *cmd);
 
+//추가한 함수
+int		get_char_index(char *arr, char c);
+void	init_env(t_env *s_env);
+
 #endif
