@@ -75,7 +75,7 @@ int					main(int ac, char **av, char *env[])
 	signal(SIGINT, sighandler);
 	init_all();
 	print_prompt();
-	free_t_hist(&g_all.thist_start);
+	// free_t_hist(&g_all.thist_start);
 	hist_copy();
 	link_thist_last_now();
 	while (read(0, &c, sizeof(int)))
