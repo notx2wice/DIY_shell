@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 14:11:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/04 13:11:00 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/17 22:34:42 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	exec_not_builtin(t_split_two *cmd)
 {
 	char	**path;
 
+	change_redir(cmd);
 	chk_is_cmd_path(cmd);
 	if (cmd->ispath == 0)
 	{

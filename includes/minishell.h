@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/04 22:05:19 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/17 21:51:13 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct			s_redir
 	int					out_flag;
 	int					in_flag;
 	int					d_out_flag;
+	int					fd;
+	int					fd_store;
 	char				*str;
 	struct s_redir		*next;
 }						t_redir;
@@ -87,6 +89,8 @@ typedef struct			s_split_two
 	t_cmd_list			*cmd_first;
 	char				**cmd;
 	struct s_redir		*redir_first;
+	struct s_redir		*redir_in;
+	struct s_redir		*redir_out;
 	struct s_split_two	*next;
 	int					ispath;
 }						t_split_two;
@@ -205,6 +209,8 @@ t_split_two	*exec_pipe(t_split_two *cmd);
 int			is_built_in(char *cmd);
 int			exec_builtin(t_split_two *cmd);
 void		exec_default_pipe(t_split_two *cmd);
+int			change_redir(t_split_two *cmd);
+void		getback_redir(t_split_two *cmd);
 
 //error
 void	ft_error(void);

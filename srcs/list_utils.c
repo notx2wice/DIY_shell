@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:22:49 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/04 13:12:08 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/17 22:19:07 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void					init_s_two(t_split_two **two)
 	(*two)->next = NULL;
 	(*two)->pipe_flag = 0;
 	(*two)->redir_first = NULL;
+	(*two)->redir_in = NULL;
+	(*two)->redir_out = NULL;
 	(*two)->redir_flag = 0;
 	(*two)->termi_flag = 0;
 }

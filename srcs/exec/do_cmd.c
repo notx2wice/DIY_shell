@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 10:52:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 19:10:24 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/17 22:34:59 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		exec_builtin(t_split_two *cmd)
 	int	ret;
 
 	ret = 0;
+	if (change_redir(cmd) == -1)
+		return (1);
 	if (ft_strcmp(cmd->cmd[0], "echo") == 0)
 		ret = exec_echo(cmd);
 	if (ft_strcmp(cmd->cmd[0], "cd") == 0)
@@ -45,7 +47,7 @@ int		exec_builtin(t_split_two *cmd)
 		ret = exec_env(cmd);
 	if (ft_strcmp(cmd->cmd[0], "exit") == 0)
 		ret = exec_exit(cmd);
-	//getback_redir(cmd);
+	getback_redir(cmd);
 	return (ret);
 }
 

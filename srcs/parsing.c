@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:29:54 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/15 18:54:40 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/17 22:30:03 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -499,6 +499,42 @@ t_split_two		*parsing(char *str_ori)
 				idx++;
 			}
 			tmp_cmd = tmp_cmd->next;
+		}
+		last_two = last_two->next;
+	}
+	
+	t_redir *new_redir = NULL;
+	last_two = first_two;
+	while (last_two)
+	{
+		if (last_two->redir_flag == 1)
+		{
+			temp_redir = last_two->redir_first;
+			while (temp_redir)
+			{
+				if (temp_redir->in_flag == 1)
+				{
+					new_redir = (t_redir*)malloc(sizeof(t_redir));
+					init_redir_list(&new_redir);
+					new_redir->in_flag = 1;
+					new_redir->str = temp_redir->str;
+					temp_redir->str = NULL;
+					add_back_redir(&last_two->redir_in, new_redir);
+				}
+				else if(temp_redir->out_flag == 1 || temp_redir->d_out_flag == 1)
+				{
+					new_redir = (t_redir*)malloc(sizeof(t_redir));
+					init_redir_list(&new_redir);
+					if (temp_redir->out_flag == 1)
+						new_redir->out_flag = 1;
+					else
+						new_redir->d_out_flag = 1;
+					new_redir->str = temp_redir->str;
+					temp_redir->str = NULL;
+					add_back_redir(&last_two->redir_out, new_redir);
+				}
+				temp_redir = temp_redir->next;
+			}
 		}
 		last_two = last_two->next;
 	}
