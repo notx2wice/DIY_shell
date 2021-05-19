@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:23:44 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/26 14:52:56 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/19 16:27:04 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void			get_env(char *env[], t_env **env_first)
 	idx = 0;
 	while (env[idx])
 	{
-		e_idx = get_char_index(env[idx], "=");
+		e_idx = get_char_index(env[idx], '=');
 		len = ft_strlen(env[idx]);
 		if (len == 0)
 		{

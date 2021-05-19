@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/19 01:08:58 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/19 16:26:20 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int					main(int ac, char **av, char *env[])
 			{
 				g_all.hist_now = g_all.hist_now->prev; // 바로 위 히스토리로 현재를 덮어씌움
 				g_all.thist_now = g_all.thist_now->prev;
-				clear_all_command_line()
+				clear_all_command_line();
 				write(1, g_all.hist_now->data.tcarr, g_all.hist_now->data.top);
 			}
 		}
@@ -117,7 +117,7 @@ int					main(int ac, char **av, char *env[])
 			{
 				g_all.hist_now = g_all.hist_now->next;
 				g_all.thist_now = g_all.thist_now->next;
-				clear_all_command_line()
+				clear_all_command_line();
 				write(1, g_all.hist_now->data.tcarr, g_all.hist_now->data.top);
 			}
 		}
@@ -129,7 +129,7 @@ int					main(int ac, char **av, char *env[])
 			{
 				if (is_same_hist()) //hist now와 thist now가 같은지
 				{
-					add_new_hist() // 같으면 thist는 내비둠.
+					add_new_hist(); // 같으면 thist는 내비둠.
 				} //히스토리를 새로 만들어서 now 히스토리의 내용을 복사해 넣고 연결 리스트 위치도 수정
 				else
 				{
@@ -175,10 +175,8 @@ int					main(int ac, char **av, char *env[])
 		}
 		else // maybe c should have short range for printable char
 		{
-			char a = c
-			write(1, &a, 1);
-			g_all.hist_now->data.tcarr[g_all.hist_now->data.top++] = a;
-
+			write(1, &c, 1);
+			g_all.hist_now->data.tcarr[g_all.hist_now->data.top++] = (char)c;
 		}
 		c = 0;
 		// c=0 을 만들어주는 이유가 있나?

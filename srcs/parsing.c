@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:29:54 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/18 14:16:06 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/19 17:10:28 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
 	i = 0;
 	while (str_cmd[i] != '\'' && str_cmd[i])
 	{
-		s_cmd->str[s_cmd->top++] = str_cmd[i];
+		(*s_cmd)->str[(*s_cmd)->top++] = str_cmd[i];
 		i++;
 	}
 	return i;
@@ -41,16 +41,16 @@ int			add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
 
 void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd)
 {
-	*last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
+	(*last_cmd) = (t_split_one*)malloc(sizeof(t_split_one));
 	init_s_one(last_cmd);
-	add_back_one(first_cmd, *last_cmd);
+	add_back_one(first_cmd, (*last_cmd));
 }
 
 void	init_two(t_split_two **last_two, t_split_two **first_two)
 {
-	*last_two = (t_split_two*)malloc(sizeof(t_split_two));
-	init_s_one(last_two);
-	add_back_one(first_two, *last_two);
+	(*last_two) = (t_split_two*)malloc(sizeof(t_split_two));
+	init_s_two(last_two);
+	add_back_two(first_two, (*last_two));
 }
 
 t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는데 투로 리턴한다..
@@ -97,7 +97,7 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 
 			idx++;
 			last_cmd->quote_flag = 1; //왜 전에 만든건 빈채로 내비두고 한개 더만든거에 플래그를 수정?
-			idx += add_cmd_txt(&last_cmd, &cmd[idx])
+			idx += add_cmd_txt(&last_cmd, &cmd[idx]);
 
 			if (!cmd[idx])// 명령어가 널문자라면? -> ' 하나만 있고 끝인 경우
 			{
@@ -333,7 +333,7 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 		last_cmd = last_cmd->next;
 	}
 
-	init_tow(&last_two, &first_two);
+	init_two(&last_two, &first_two);
 	last_cmd = first_cmd;
 	while (last_cmd)
 	{

@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:44:21 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/17 12:53:12 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/19 16:26:41 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	clear_all_command_line()
 {
 	int i;
 
-	i = -1
+	i = -1;
 	while (++i < g_all.hist_now->data.top)
 	{
-		just_delete_end()
+		just_delete_end();
 	}
 }
