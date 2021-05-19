@@ -112,8 +112,7 @@ int					main(int ac, char **av, char *env[])
 			delete_end(&g_all.tc.curcol, &g_all.tc.currow, g_all.tc.cm, g_all.tc.ce); // 지워지세요
 		else if (c == NEXT_LINE) // \n 엔터 들어왔을때
 		{
-			if (g_all.hist_now != g_all.
-			)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
+			if (g_all.hist_now != g_all.last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
 			{
 				if (is_same_hist())
 				{
