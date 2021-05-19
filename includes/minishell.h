@@ -127,7 +127,7 @@ typedef struct			s_all
 	t_hist				*hist_now;
 	t_hist				*thist_start;
 	t_hist				*thist_now;
-	t_hist				*last;
+	t_hist				*hist_last;
 	t_hist				*tlast;
 	t_hist				*temp;
 	t_termcap			tc;

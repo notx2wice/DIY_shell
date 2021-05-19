@@ -26,8 +26,8 @@ void				sighandler(int sig_num)
 		else
 		{
 			g_all.exit_code = 1;
-			g_all.hist_now = g_all.last;
-			g_all.last->data.top = 0;
+			g_all.hist_now = g_all.hist_last;
+			g_all.hist_last->data.top = 0;
 			write(1, "\nmini> ", 7);
 		}
 		return ;
@@ -69,7 +69,7 @@ int					main(int ac, char **av, char *env[])
 	t_hist			*temp;
 	t_hist			*ttemp;
 	t_split_two		*now_cmd;
-	g_all.last = NULL;
+	g_all.hist_last = NULL;
 	get_env(env, &g_all.env_first);
 	signal(SIGQUIT, sighandler);
 	signal(SIGINT, sighandler);
@@ -112,28 +112,28 @@ int					main(int ac, char **av, char *env[])
 			delete_end(&g_all.tc.curcol, &g_all.tc.currow, g_all.tc.cm, g_all.tc.ce); // 지워지세요
 		else if (c == NEXT_LINE) // \n 엔터 들어왔을때
 		{
-			if (g_all.hist_now != g_all.last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
+			if (g_all.hist_now != g_all.hist_last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
 			{
 				if (is_same_hist())
 				{
 					temp = make_hs_node();
 					copy_process(&g_all.hist_now, &temp);
-					g_all.last->prev->next = temp;
-					temp->prev = g_all.last->prev;
-					free_t_hist(&g_all.last);
-					g_all.last = temp;
-					g_all.hist_now = g_all.last;
-				}
+					g_all.hist_last->prev->next = temp; //hist_start인데 왜 hist_last가 아닌것인가..
+					temp->prev = g_all.hist_last->prev;
+					free_t_hist(&g_all.hist_last);
+					g_all.hist_last = temp;
+					g_all.hist_now = g_all.hist_last;
+				} //히스토리를 새로 만들어서 now 히스토리의 내용을 복사해 넣고
 				else
 				{
 					temp = make_hs_node();
 					copy_process(&g_all.hist_now, &temp);
 					copy_process(&g_all.thist_now, &g_all.hist_now);
-					g_all.last->prev->next = temp;
-					temp->prev = g_all.last->prev;
-					free_t_hist(&g_all.last);
-					g_all.last = temp;
-					g_all.hist_now = g_all.last;
+					g_all.hist_last->prev->next = temp;
+					temp->prev = g_all.hist_last->prev;
+					free_t_hist(&g_all.hist_last);
+					g_all.hist_last = temp;
+					g_all.hist_now = g_all.hist_last;
 				}
 			}
 			else
@@ -152,12 +152,12 @@ int					main(int ac, char **av, char *env[])
 				link_thist_last_now();
 				write(1, "\n", 1);
 				write(1, "mini> ", PROMPT_SIZE);
-				g_all.hist_now = g_all.last;
+				g_all.hist_now = g_all.hist_last;
 				continue ;
 			}
 			g_all.hist_now->data.tcarr[g_all.hist_now->data.top] = '\0';
 			now_cmd = parsing(g_all.hist_now->data.tcarr);
-			g_all.hist_now = g_all.last;
+			g_all.hist_now = g_all.hist_last;
 			write(1, "\n", 1);
 			if (now_cmd != NULL)
 				exec_command(now_cmd);
