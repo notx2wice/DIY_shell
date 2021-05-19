@@ -64,7 +64,7 @@ void				add_new_hist()
 	t_hist			*temp;
 
 	temp = make_hs_node();
-	copy_process(&g_all.hist_now, &temp);
+	copy_hist(&g_all.hist_now, &temp);
 	g_all.hist_last->prev->next = temp; //hist_start인데 왜 hist_last가 아닌것인가..
 	temp->prev = g_all.hist_last->prev;
 	free_t_hist(&g_all.hist_last);
@@ -89,7 +89,7 @@ int					main(int ac, char **av, char *env[])
 	init_all();
 	print_prompt();
 	// free_t_hist(&g_all.thist_start);
-	hist_copy();
+	copy_all_hist();
 	link_thist_last_now();
 	while (read(0, &c, sizeof(int)))
 	{
@@ -127,15 +127,15 @@ int					main(int ac, char **av, char *env[])
 		{
 			if (g_all.hist_now != g_all.hist_last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
 			{
-				if (is_same_hist())
+				if (is_same_hist()) //hist now와 thist now가 같은지
 				{
-					add_new_hist()
+					add_new_hist() // 같으면 thist는 내비둠.
 				} //히스토리를 새로 만들어서 now 히스토리의 내용을 복사해 넣고 연결 리스트 위치도 수정
 				else
 				{
 					temp = make_hs_node();
-					copy_process(&g_all.hist_now, &temp);
-					copy_process(&g_all.thist_now, &g_all.hist_now);
+					copy_hist(&g_all.hist_now, &temp);
+					copy_hist(&g_all.thist_now, &g_all.hist_now); // 다르면 thist now에 hist now를 덮어씌움
 					g_all.hist_last->prev->next = temp;
 					temp->prev = g_all.hist_last->prev;
 					free_t_hist(&g_all.hist_last);
@@ -144,18 +144,18 @@ int					main(int ac, char **av, char *env[])
 				}
 			}
 			else
-			{
-				if (g_all.hist_now->data.top == 0)
+			{ // 현재 hist now랑 마지막으로 저장했던 hist last가 같다면 아무것도 하지 않고 다시 명령줄 대기
+				if (g_all.hist_now->data.top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
 				{
 					write(1, "\n", 1);
 					write(1, "mini> ", PROMPT_SIZE);
 					continue ;
 				}
 			}
-			if (g_all.hist_now->data.top == 0)
+			if (g_all.hist_now->data.top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
 			{
 				free_t_hist(&g_all.thist_start);
-				hist_copy();
+				copy_all_hist();
 				link_thist_last_now();
 				write(1, "\n", 1);
 				write(1, "mini> ", PROMPT_SIZE);
@@ -170,7 +170,7 @@ int					main(int ac, char **av, char *env[])
 				exec_command(now_cmd);
 			print_prompt();
 			free_t_hist(&g_all.thist_start);
-			hist_copy();
+			copy_all_hist();
 			link_thist_last_now();
 		}
 		else // maybe c should have short range for printable char

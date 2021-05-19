@@ -181,8 +181,8 @@ void		free_cmd(t_cmd_list **cmd);
 void		free_two(t_split_two **two);
 
 //histoty
-void		hist_copy();
-void		copy_process(t_hist **ori, t_hist **cpy);
+void		copy_all_hist();
+void		copy_hist(t_hist **ori, t_hist **cpy);
 void		link_thist_last_now();
 int			is_same_hist();
  //env
