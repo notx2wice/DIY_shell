@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:23:44 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/19 16:27:04 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/19 19:21:57 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int					get_char_index(char *arr, char c)
 	return i;
 }
 
-void		init_env(t_env *s_env)
+void		init_env(t_env **s_env)
 {
-	s_env = (t_env*)malloc(sizeof(s_env));
-	s_env->key = NULL;
-	s_env->value = NULL;
-	s_env->next = NULL;
+	(*s_env) = (t_env*)malloc(sizeof(t_env));
+	(*s_env)->key = NULL;
+	(*s_env)->value = NULL;
+	(*s_env)->next = NULL;
 }
 
 void			get_env(char *env[], t_env **env_first)
@@ -100,7 +100,7 @@ void			get_env(char *env[], t_env **env_first)
 			idx++;
 			continue ;
 		}
-		init_env(tmp_env);
+		init_env(&tmp_env);
 		tmp_env->key = ft_substr(env[idx], 0, e_idx);
 		if (len - e_idx > 0)
 			tmp_env->value = ft_substr(env[idx], e_idx + 1, len - e_idx);

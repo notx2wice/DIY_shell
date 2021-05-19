@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/19 17:07:39 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/19 19:22:57 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ int		empty_cmd_handler(t_split_two *cmd);
 
 //추가한 함수
 int		get_char_index(char *arr, char c);
-void	init_env(t_env *s_env);
+void	init_env(t_env **s_env);
 void	clear_all_command_line();
 int		add_cmd_txt(t_split_one **s_cmd, char *str_cmd);
 void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd);
