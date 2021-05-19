@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 14:11:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/17 22:34:42 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/18 20:26:57 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ void	exec_not_builtin(t_split_two *cmd)
 			exit(no_file_error(cmd, 127));
 		exec_not_builtin_sub(cmd, path);
 		free_2d_arr(&path);
-		//exit(no_cmd_error(cmd, 127));
-		exit(0);
+		exit(no_command_error(cmd, 127));
 	}
 	else
 	{
