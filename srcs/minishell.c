@@ -59,6 +59,19 @@ int					is_same_hist()
 	return (1);
 }
 
+void				add_new_hist()
+{
+	t_hist			*temp;
+
+	temp = make_hs_node();
+	copy_process(&g_all.hist_now, &temp);
+	g_all.hist_last->prev->next = temp; //hist_start인데 왜 hist_last가 아닌것인가..
+	temp->prev = g_all.hist_last->prev;
+	free_t_hist(&g_all.hist_last);
+	g_all.hist_last = temp;
+	g_all.hist_now = g_all.hist_last;
+}
+
 int					main(int ac, char **av, char *env[])
 {
 	int				c;
@@ -116,14 +129,8 @@ int					main(int ac, char **av, char *env[])
 			{
 				if (is_same_hist())
 				{
-					temp = make_hs_node();
-					copy_process(&g_all.hist_now, &temp);
-					g_all.hist_last->prev->next = temp; //hist_start인데 왜 hist_last가 아닌것인가..
-					temp->prev = g_all.hist_last->prev;
-					free_t_hist(&g_all.hist_last);
-					g_all.hist_last = temp;
-					g_all.hist_now = g_all.hist_last;
-				} //히스토리를 새로 만들어서 now 히스토리의 내용을 복사해 넣고
+					add_new_hist()
+				} //히스토리를 새로 만들어서 now 히스토리의 내용을 복사해 넣고 연결 리스트 위치도 수정
 				else
 				{
 					temp = make_hs_node();
