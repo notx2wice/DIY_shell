@@ -36,7 +36,7 @@ void	just_delete_end()
 {
 	if (g_all.tc.curcol == 0) // 현재 커서의 x 위치가 0이면 / 줄이 넘어갔을경우만임
 	{
-		--(g_all.tc.currow); // 커서의 y 위치를 1 줄임 
+		--(g_all.tc.currow); // 커서의 y 위치를 1 줄임
 		g_all.tc.curcol = g_all.tc.col - 1; // 터미널 가로의 전체에서 -1 빼줌
 		tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
 		tputs(g_all.tc.ce, 1, putchar_tc);
@@ -47,5 +47,16 @@ void	just_delete_end()
 		--g_all.tc.curcol;
 		tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
 		tputs(g_all.tc.ce, 1, putchar_tc);
+	}
+}
+
+void	clear_all_command_line()
+{
+	int i;
+
+	i = -1
+	while (++i < g_all.hist_now->data.top)
+	{
+		just_delete_end()
 	}
 }
