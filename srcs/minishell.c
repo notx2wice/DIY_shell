@@ -150,20 +150,20 @@ int					main(int ac, char **av, char *env[])
 					write(1, "\n", 1);
 					write(1, "mini> ", PROMPT_SIZE);
 					continue ;
-				}
+				}// 마지막 히스토리와 현재가 같은데 data가 0이다? 마지막 히스토리와 hist now가 둘다 null이였을경우? null인데 어떻게 data.top으로 접근하징?
 			}
 			if (g_all.hist_now->data.top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
 			{
-				free_t_hist(&g_all.thist_start);
-				copy_all_hist();
-				link_thist_last_now();
+				free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
+				copy_all_hist(); // hist에 있는걸 thist로 복사
+				link_thist_last_now(); // thist의 now와 last를 init 해줌
 				write(1, "\n", 1);
 				write(1, "mini> ", PROMPT_SIZE);
 				g_all.hist_now = g_all.hist_last;
 				continue ;
 			}
 			g_all.hist_now->data.tcarr[g_all.hist_now->data.top] = '\0';
-			now_cmd = parsing(g_all.hist_now->data.tcarr);
+			now_cmd = parsing(g_all.hist_now->data.tcarr); //현재명령 tcarr이 도대체 머임
 			g_all.hist_now = g_all.hist_last;
 			write(1, "\n", 1);
 			if (now_cmd != NULL)

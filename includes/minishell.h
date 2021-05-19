@@ -37,7 +37,7 @@
 # define UP_ARROW 4283163
 # define DOWN_ARROW 4348699
 # define NEXT_LINE 10
-# define BUFFS 4000
+# define BUFFS 4000 //버퍼가 4000이여도 괜차는건가? 1024는어떤감.. 버퍼가 1024면 효율이 조타더넫..
 # define PROMPT_SIZE 6
 # define EXIT_SUCCESS 0
 
@@ -230,5 +230,5 @@ int		empty_cmd_handler(t_split_two *cmd);
 int		get_char_index(char *arr, char c);
 void	init_env(t_env *s_env);
 void	clear_all_command_line();
-
+int		add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
 #endif
