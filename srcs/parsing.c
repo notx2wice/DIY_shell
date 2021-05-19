@@ -26,7 +26,7 @@ int				count_cmd(t_cmd_list *cmd)
 	return (idx);
 }
 
-int add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
+int			add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
 {
 	int i;
 
@@ -37,6 +37,20 @@ int add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
 		i++;
 	}
 	return i;
+}
+
+void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd)
+{
+	*last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
+	init_s_one(last_cmd);
+	add_back_one(first_cmd, *last_cmd);
+}
+
+void	init_two(t_split_two **last_two, t_split_two **first_two)
+{
+	*last_two = (t_split_two*)malloc(sizeof(t_split_two));
+	init_s_one(last_two);
+	add_back_one(first_two, *last_two);
 }
 
 t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는데 투로 리턴한다..
@@ -61,14 +75,8 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 	first_two = NULL;
 	temp_redir = NULL; //얘네 초기화안되나?
 	//void init_all_s_cmd() one과 two가 어떻게 나뉘어졌는지 알아봐야겠음.. 그리고 둘을 합친 구조체 만들수있는지도.
-
-	last_cmd = (t_split_one*)malloc(sizeof(t_split_one)); //마지막 명령어
-	init_s_one(&last_cmd); // 초기화 / s_one 실화냐..
-	add_back_one(&first_cmd, last_cmd); //마지막 명령어를 뒤에 넣어준다
-	// 여기까지 one 구조체의 연결리스트 초기화(first, last one 구조체의 변수를 포함한)
-
+	init_cmd(&last_cmd, &first_cmd);
 	cmd = str_ori; //char arr의 명령어 원본
-
 	idx = 0;
 	while (cmd[idx]) //명령어 파싱 시작
 	{
@@ -76,27 +84,16 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 		{
 			//현재 명령어에 수정
 			last_cmd->pipe_flag = 1;
-
-			//명령어 새로 추가
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
-			//처음이랑 같음 중복코드
+			init_cmd(&last_cmd, &first_cmd);
 		}
 		else if (cmd[idx] == ';') // semicolon
 		{
 			last_cmd->termi_flag = 1; //왜 termi?
-
-			// 중복코드. 명령어 또 추가함
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
 		}
 		else if (cmd[idx] == '\'')//quote 변수로 만들어서 관리하면 좋을듯.
 		{
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
 
 			idx++;
 			last_cmd->quote_flag = 1; //왜 전에 만든건 빈채로 내비두고 한개 더만든거에 플래그를 수정?
@@ -108,22 +105,11 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 				//free()
 				break;
 			}
-			// init_cmd(&last_cmd, &first_cmd)
-			// void init_cmd(t_split_one **last_cmd, t_split_one **first_cmd)
-			// {
-			// 	last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			// 	init_s_one(last_cmd);
-			// 	add_back_one(first_cmd, *last_cmd);
-			// }
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
 		}
 		else if (cmd[idx] == '\"')
 		{
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
 			idx++;
 			last_cmd->d_quote_flag = 1;
 			while (cmd[idx] != '\"' && cmd[idx])
@@ -137,9 +123,7 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 				//free()
 				break;
 			}
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
 		}
 		else if (cmd[idx] == '<' || cmd[idx] == '>')
 		{
@@ -349,9 +333,7 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 		last_cmd = last_cmd->next;
 	}
 
-	last_two = (t_split_two*)malloc(sizeof(t_split_two));
-	init_s_two(&last_two);
-	add_back_two(&first_two, last_two);
+	init_tow(&last_two, &first_two);
 	last_cmd = first_cmd;
 	while (last_cmd)
 	{

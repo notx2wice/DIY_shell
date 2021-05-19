@@ -230,5 +230,8 @@ int		empty_cmd_handler(t_split_two *cmd);
 int		get_char_index(char *arr, char c);
 void	init_env(t_env *s_env);
 void	clear_all_command_line();
-int		add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
+int		add_cmd_txt(t_split_one **s_cmd, char *str_cmd);
+void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd);
+void	init_two(t_split_two **last_two, t_split_two **first_two);
+
 #endif
