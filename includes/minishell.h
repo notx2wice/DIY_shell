@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/20 17:30:46 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/20 17:35:14 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ void	syntax_error(void);
 int		is_empty_cmd(t_split_two *cmd);
 int		empty_cmd_handler(t_split_two *cmd);
 
-//추가한 
+//추가한  
 int		get_char_index(char *arr, char c);
 void	init_env(t_env **s_env);
 void	clear_all_command_line();
