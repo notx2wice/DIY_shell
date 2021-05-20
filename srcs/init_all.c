@@ -29,6 +29,7 @@ void			init_all(char **env)
 	get_env(env, &g_all.env_first);
 	signal(SIGQUIT, sighandler);
 	signal(SIGINT, sighandler);
+	g_all.hist_last = NULL;
 	g_all.exit_code = 0;
 	g_all.child = 0;
 	init_term();
