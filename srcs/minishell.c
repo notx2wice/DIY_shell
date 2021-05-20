@@ -80,8 +80,6 @@ int					main(int ac, char **av, char *env[])
 	(void)ac;
 	(void)av;
 
-	t_hist			*temp;
-	t_hist			*ttemp;
 	t_split_two		*now_cmd;
 	g_all.hist_last = NULL;
 	init_all(env);
@@ -155,6 +153,5 @@ int					main(int ac, char **av, char *env[])
 			g_all.hist_now->data.tcarr[g_all.hist_now->data.top++] = (char)c;
 		}
 		c = 0;
-		// c=0 을 만들어주는 이유가 있나?
 	}
 }
