@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/19 16:26:20 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/20 10:37:40 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ int					main(int ac, char **av, char *env[])
 		{
 			if (g_all.hist_now->prev)
 			{
+				clear_all_command_line();
 				g_all.hist_now = g_all.hist_now->prev; // 바로 위 히스토리로 현재를 덮어씌움
 				g_all.thist_now = g_all.thist_now->prev;
-				clear_all_command_line();
 				write(1, g_all.hist_now->data.tcarr, g_all.hist_now->data.top);
 			}
 		}
@@ -115,9 +115,9 @@ int					main(int ac, char **av, char *env[])
 		{
 			if (g_all.hist_now->next)
 			{
+				clear_all_command_line();
 				g_all.hist_now = g_all.hist_now->next;
 				g_all.thist_now = g_all.thist_now->next;
-				clear_all_command_line();
 				write(1, g_all.hist_now->data.tcarr, g_all.hist_now->data.top);
 			}
 		}
