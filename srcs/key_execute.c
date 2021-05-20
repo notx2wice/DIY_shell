@@ -81,7 +81,7 @@ void			key_execute(int c)
 	else if (c == DOWN_ARROW)
 		down_arrow_execute();
 	else if (c == BACKSPACE) // 지우기 누를때
-		delete_end(&g_all.tc.curcol, &g_all.tc.currow, g_all.tc.cm, g_all.tc.ce); // 지워지세요
+		delete_end(); // 지워지세요
 	else if (c == NEXT_LINE) // \n 엔터 들어왔을때
 		next_line_execute();
 	else // maybe c should have short range for printable char

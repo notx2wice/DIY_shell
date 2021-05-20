@@ -143,7 +143,7 @@ int			putchar_tc(int tc);
 int			nbr_length(int n);
 void		cursor_win(void);
 void		get_cursor_position(int *col, int *rows);
-void		delete_end(int *col, int *row, char *cm, char *ce);
+void		delete_end();
 void		just_delete_end();
 
 //init
