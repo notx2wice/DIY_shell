@@ -77,8 +77,6 @@ void				add_new_hist()
 int					main(int ac, char **av, char *env[])
 {
 	int				c;
-	(void)ac;
-	(void)av;
 
 	t_split_two		*now_cmd;
 	g_all.hist_last = NULL;
