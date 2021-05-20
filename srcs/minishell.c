@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/20 10:37:40 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/20 12:59:06 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ void				add_new_hist()
 
 	temp = make_hs_node();
 	copy_hist(&g_all.hist_now, &temp);
+	copy_hist(&g_all.thist_now, &g_all.hist_now);
 	g_all.hist_last->prev->next = temp; //hist_start인데 왜 hist_last가 아닌것인가..
 	temp->prev = g_all.hist_last->prev;
 	free_t_hist(&g_all.hist_last);
 	g_all.hist_last = temp;
 	g_all.hist_now = g_all.hist_last;
+
 }
 
 int					main(int ac, char **av, char *env[])
@@ -126,32 +128,14 @@ int					main(int ac, char **av, char *env[])
 		else if (c == NEXT_LINE) // \n 엔터 들어왔을때
 		{
 			if (g_all.hist_now != g_all.hist_last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
-			{
-				if (is_same_hist()) //hist now와 thist now가 같은지
-				{
-					add_new_hist(); // 같으면 thist는 내비둠.
-				} //히스토리를 새로 만들어서 now 히스토리의 내용을 복사해 넣고 연결 리스트 위치도 수정
-				else
-				{
-					temp = make_hs_node();
-					copy_hist(&g_all.hist_now, &temp);
-					copy_hist(&g_all.thist_now, &g_all.hist_now); // 다르면 thist now에 hist now를 덮어씌움
-					g_all.hist_last->prev->next = temp;
-					temp->prev = g_all.hist_last->prev;
-					free_t_hist(&g_all.hist_last);
-					g_all.hist_last = temp;
-					g_all.hist_now = g_all.hist_last;
-				}
-			}
+				add_new_hist(); // 같으면 thist는 내비둠.
 			else
-			{ // 현재 hist now랑 마지막으로 저장했던 hist last가 같다면 아무것도 하지 않고 다시 명령줄 대기
 				if (g_all.hist_now->data.top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
 				{
 					write(1, "\n", 1);
 					write(1, "mini> ", PROMPT_SIZE);
 					continue ;
 				}// 마지막 히스토리와 현재가 같은데 data가 0이다? 마지막 히스토리와 hist now가 둘다 null이였을경우? null인데 어떻게 data.top으로 접근하징?
-			}
 			if (g_all.hist_now->data.top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
 			{
 				free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
