@@ -108,19 +108,21 @@ void				next_line_execute()
 	int				*hist_now_data_top;
 
 	hist_now_data_top = &(g_all.hist_now->data.top);
-	if (g_all.hist_now != g_all.hist_last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
+	if (g_all.hist_now != g_all.hist_last)
+	{
 		add_new_hist(); // 같으면 thist는 내비둠.
+		if (*hist_now_data_top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
+		{
+			free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
+			copy_all_hist(); // hist에 있는걸 thist로 복사
+			link_thist_last_now(); // thist의 now와 last를 init 해줌
+			g_all.hist_now = g_all.hist_last;
+			print_new_line_and_prompt();
+			continue ;
+		}
+	}
 	else if (*hist_now_data_top == 0)
 	{
-		print_new_line_and_prompt();
-		continue ;
-	}
-	if (*hist_now_data_top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
-	{
-		free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
-		copy_all_hist(); // hist에 있는걸 thist로 복사
-		link_thist_last_now(); // thist의 now와 last를 init 해줌
-		g_all.hist_now = g_all.hist_last;
 		print_new_line_and_prompt();
 		continue ;
 	}
