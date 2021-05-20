@@ -102,6 +102,14 @@ void		print_new_line_and_prompt()
 	write(1, "mini> ", PROMPT_SIZE);
 }
 
+void			re_init_thist()
+{
+	free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
+	copy_all_hist(); // hist에 있는걸 thist로 복사
+	link_thist_last_now(); // thist의 now와 last를 init 해줌
+	g_all.hist_now = g_all.hist_last;
+}
+
 void				next_line_execute()
 {
 	t_split_two		*now_cmd;
@@ -113,10 +121,7 @@ void				next_line_execute()
 		add_new_hist(); // 같으면 thist는 내비둠.
 		if (*hist_now_data_top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
 		{
-			free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
-			copy_all_hist(); // hist에 있는걸 thist로 복사
-			link_thist_last_now(); // thist의 now와 last를 init 해줌
-			g_all.hist_now = g_all.hist_last;
+			re_init_thist();
 			print_new_line_and_prompt();
 			continue ;
 		}
@@ -128,14 +133,11 @@ void				next_line_execute()
 	}
 	g_all.hist_now->data.tcarr[hist_now_data_top] = '\0';
 	now_cmd = parsing(g_all.hist_now->data.tcarr); //현재명령 tcarr이 도대체 머임
-	g_all.hist_now = g_all.hist_last;
 	write(1, "\n", 1);
 	if (now_cmd != NULL)
 		exec_command(now_cmd);
 	print_prompt();
-	free_t_hist(&g_all.thist_start);
-	copy_all_hist();
-	link_thist_last_now();
+	re_init_thist();
 }
 
 void				key_execute()
