@@ -109,7 +109,7 @@ void				next_line_execute()
 	re_init_thist();
 }
 
-void				key_execute()
+void				key_execute(int c)
 {
 	int				*hist_now_data_top;
 
@@ -144,7 +144,7 @@ int					main(int ac, char **av, char *env[])
 	while (read(0, &c, sizeof(int)))
 	{
 		get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
-		key_execute();
+		key_execute(c);
 		c = 0;
 	}
 }
