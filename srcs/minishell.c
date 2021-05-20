@@ -74,11 +74,45 @@ void				add_new_hist()
 
 }
 
-void				key_execute()
+void				next_line_execute()
+{
 {
 	t_split_two		*now_cmd;
-	int				*hist_now_data_top;
 
+	if (g_all.hist_now != g_all.hist_last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
+		add_new_hist(); // 같으면 thist는 내비둠.
+	else
+		if (*hist_now_data_top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
+		{
+			write(1, "\n", 1);
+			write(1, "mini> ", PROMPT_SIZE);
+			continue ;
+		}// 마지막 히스토리와 현재가 같은데 data가 0이다? 마지막 히스토리와 hist now가 둘다 null이였을경우? null인데 어떻게 data.top으로 접근하징?
+	if (*hist_now_data_top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
+	{
+		free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
+		copy_all_hist(); // hist에 있는걸 thist로 복사
+		link_thist_last_now(); // thist의 now와 last를 init 해줌
+		write(1, "\n", 1);
+		write(1, "mini> ", PROMPT_SIZE);
+		g_all.hist_now = g_all.hist_last;
+		continue ;
+	}
+	g_all.hist_now->data.tcarr[hist_now_data_top] = '\0';
+	now_cmd = parsing(g_all.hist_now->data.tcarr); //현재명령 tcarr이 도대체 머임
+	g_all.hist_now = g_all.hist_last;
+	write(1, "\n", 1);
+	if (now_cmd != NULL)
+		exec_command(now_cmd);
+	print_prompt();
+	free_t_hist(&g_all.thist_start);
+	copy_all_hist();
+	link_thist_last_now();
+}
+
+void				key_execute()
+{
+	int				*hist_now_data_top;
 
 	hist_now_data_top = &(g_all.hist_now->data.top);
 	if (c == EOF_KEY) // cntl + d
@@ -112,35 +146,7 @@ void				key_execute()
 		delete_end(&g_all.tc.curcol, &g_all.tc.currow, g_all.tc.cm, g_all.tc.ce); // 지워지세요
 	else if (c == NEXT_LINE) // \n 엔터 들어왔을때
 	{
-		if (g_all.hist_now != g_all.hist_last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
-			add_new_hist(); // 같으면 thist는 내비둠.
-		else
-			if (*hist_now_data_top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
-			{
-				write(1, "\n", 1);
-				write(1, "mini> ", PROMPT_SIZE);
-				continue ;
-			}// 마지막 히스토리와 현재가 같은데 data가 0이다? 마지막 히스토리와 hist now가 둘다 null이였을경우? null인데 어떻게 data.top으로 접근하징?
-		if (*hist_now_data_top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
-		{
-			free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
-			copy_all_hist(); // hist에 있는걸 thist로 복사
-			link_thist_last_now(); // thist의 now와 last를 init 해줌
-			write(1, "\n", 1);
-			write(1, "mini> ", PROMPT_SIZE);
-			g_all.hist_now = g_all.hist_last;
-			continue ;
-		}
-		g_all.hist_now->data.tcarr[hist_now_data_top] = '\0';
-		now_cmd = parsing(g_all.hist_now->data.tcarr); //현재명령 tcarr이 도대체 머임
-		g_all.hist_now = g_all.hist_last;
-		write(1, "\n", 1);
-		if (now_cmd != NULL)
-			exec_command(now_cmd);
-		print_prompt();
-		free_t_hist(&g_all.thist_start);
-		copy_all_hist();
-		link_thist_last_now();
+		next_line_execute()
 	}
 	else // maybe c should have short range for printable char
 	{
