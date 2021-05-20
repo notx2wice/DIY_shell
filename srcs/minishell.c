@@ -96,19 +96,26 @@ void			down_arrow_excute()
 	}
 }
 
+void		print_new_line_and_prompt()
+{
+	write(1, "\n", 1);
+	write(1, "mini> ", PROMPT_SIZE);
+}
+
 void				next_line_execute()
 {
 	t_split_two		*now_cmd;
+	int				*hist_now_data_top;
 
+	hist_now_data_top = &(g_all.hist_now->data.top);
 	if (g_all.hist_now != g_all.hist_last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
 		add_new_hist(); // 같으면 thist는 내비둠.
 	else
-		if (*hist_now_data_top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
+		if (*hist_now_data_top == 0)
 		{
-			write(1, "\n", 1);
-			write(1, "mini> ", PROMPT_SIZE);
+			print_new_line_and_prompt();
 			continue ;
-		}// 마지막 히스토리와 현재가 같은데 data가 0이다? 마지막 히스토리와 hist now가 둘다 null이였을경우? null인데 어떻게 data.top으로 접근하징?
+		}
 	if (*hist_now_data_top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
 	{
 		free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?

@@ -237,5 +237,6 @@ void	key_execute();
 void	up_arrow_execute();
 void	down_arrow_excute();
 void	next_line_execute();
+void	print_new_line_and_prompt();
 
 #endif
