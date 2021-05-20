@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 11:16:10 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/15 15:30:55 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/20 10:41:12 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,5 @@ void		link_thist_last_now()
 	while (temp->next)
 		temp = temp->next;
 	g_all.thist_now = temp;
-	g_all.tlast = temp;
+	g_all.thist_last = temp;
 }

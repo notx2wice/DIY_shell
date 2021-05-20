@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/19 19:22:57 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/20 10:40:19 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct			s_all
 	t_hist				*thist_start;
 	t_hist				*thist_now;
 	t_hist				*hist_last;
-	t_hist				*tlast;
+	t_hist				*thist_last;
 	t_hist				*temp;
 	t_termcap			tc;
 	t_env				*env_first;
