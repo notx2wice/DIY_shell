@@ -71,14 +71,6 @@ void		print_new_line_and_prompt()
 	write(1, "mini> ", PROMPT_SIZE);
 }
 
-void			re_init_thist()
-{
-	free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
-	copy_all_hist(); // hist에 있는걸 thist로 복사
-	link_thist_last_now(); // thist의 now와 last를 init 해줌
-	g_all.hist_now = g_all.hist_last;
-}
-
 void				next_line_execute()
 {
 	t_split_two		*now_cmd;

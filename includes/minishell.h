@@ -168,8 +168,6 @@ t_hist		*make_hs_node();
 void		add_back_hs_node(t_hist **head, t_hist *added);
 void		node_prev(t_hist **now);
 void		node_next(t_hist **now);
-void		init_hists();
-void		init_thists();
 //free things
 void		free_t_hist(t_hist **freed_hist); //free normal t_hist
 void		free_copy_thist();
@@ -239,5 +237,6 @@ void	down_arrow_excute();
 void	next_line_execute();
 void	print_new_line_and_prompt();
 void	re_init_thist();
+void	null_init_hist_and_thist();
 
 #endif

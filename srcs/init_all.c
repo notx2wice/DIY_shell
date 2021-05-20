@@ -12,16 +12,22 @@
 
 #include "../includes/minishell.h"
 
-void			init_hists()
+void			null_init_hist_and_thist()
 {
 	g_all.hist_now = NULL;
 	g_all.hist_start = NULL;
-}
-
-void			init_thists()
-{
+	g_all.hist_last = NULL;
 	g_all.thist_now = NULL;
 	g_all.thist_start = NULL;
+	g_all.thist_last = NULL;
+}
+
+void			re_init_thist()
+{
+	free_t_hist(&g_all.thist_start);
+	copy_all_hist();
+	link_thist_last_now();
+	g_all.hist_now = g_all.hist_last;
 }
 
 void			init_all(char **env)
@@ -29,14 +35,10 @@ void			init_all(char **env)
 	get_env(env, &g_all.env_first);
 	signal(SIGQUIT, sighandler);
 	signal(SIGINT, sighandler);
-	g_all.hist_last = NULL;
 	g_all.exit_code = 0;
 	g_all.child = 0;
 	init_term();
 	cursor_win();
-	init_hists();
-	init_thists();
+	init_null_hist_and_thist();
 	print_prompt();
-	copy_all_hist();
-	link_thist_last_now();
 }
