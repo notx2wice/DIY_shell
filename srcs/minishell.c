@@ -98,7 +98,6 @@ void			down_arrow_excute()
 
 void				next_line_execute()
 {
-{
 	t_split_two		*now_cmd;
 
 	if (g_all.hist_now != g_all.hist_last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
@@ -151,9 +150,7 @@ void				key_execute()
 	else if (c == BACKSPACE) // 지우기 누를때
 		delete_end(&g_all.tc.curcol, &g_all.tc.currow, g_all.tc.cm, g_all.tc.ce); // 지워지세요
 	else if (c == NEXT_LINE) // \n 엔터 들어왔을때
-	{
 		next_line_execute();
-	}
 	else // maybe c should have short range for printable char
 	{
 		write(1, &c, 1);

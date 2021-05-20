@@ -234,7 +234,7 @@ int		add_cmd_txt(t_split_one **s_cmd, char *str_cmd);
 void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd);
 void	init_two(t_split_two **last_two, t_split_two **first_two);
 void	key_execute();
-void	up_arrow_execute()
+void	up_arrow_execute();
 void	down_arrow_excute();
 void	next_line_execute();
 
