@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/18 20:25:24 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/20 10:40:19 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define UP_ARROW 4283163
 # define DOWN_ARROW 4348699
 # define NEXT_LINE 10
-# define BUFFS 4000
+# define BUFFS 4000 //버퍼가 4000이여도 괜차는건가? 1024는어떤감.. 버퍼가 1024면 효율이 조타더넫..
 # define PROMPT_SIZE 6
 # define EXIT_SUCCESS 0
 
@@ -127,8 +127,8 @@ typedef struct			s_all
 	t_hist				*hist_now;
 	t_hist				*thist_start;
 	t_hist				*thist_now;
-	t_hist				*last;
-	t_hist				*tlast;
+	t_hist				*hist_last;
+	t_hist				*thist_last;
 	t_hist				*temp;
 	t_termcap			tc;
 	t_env				*env_first;
@@ -143,7 +143,7 @@ int			putchar_tc(int tc);
 int			nbr_length(int n);
 void		cursor_win(void);
 void		get_cursor_position(int *col, int *rows);
-void		delete_end();
+void		delete_end(int *col, int *row, char *cm, char *ce);
 void		just_delete_end();
 
 //init
@@ -181,8 +181,8 @@ void		free_cmd(t_cmd_list **cmd);
 void		free_two(t_split_two **two);
 
 //histoty
-void		hist_copy();
-void		copy_process(t_hist **ori, t_hist **cpy);
+void		copy_all_hist();
+void		copy_hist(t_hist **ori, t_hist **cpy);
 void		link_thist_last_now();
 int			is_same_hist();
  //env
@@ -225,5 +225,13 @@ int		not_valid_idt(t_split_two *cmd, char *arg, int err_num);
 void	syntax_error(void);
 int		is_empty_cmd(t_split_two *cmd);
 int		empty_cmd_handler(t_split_two *cmd);
+
+//추가한 함수
+int		get_char_index(char *arr, char c);
+void	init_env(t_env **s_env);
+void	clear_all_command_line();
+int		add_cmd_txt(t_split_one **s_cmd, char *str_cmd);
+void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd);
+void	init_two(t_split_two **last_two, t_split_two **first_two);
 
 #endif

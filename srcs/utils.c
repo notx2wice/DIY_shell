@@ -6,13 +6,13 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 11:16:10 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/15 15:30:55 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/20 10:41:12 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		copy_process(t_hist **ori, t_hist **cpy)
+void		copy_hist(t_hist **ori, t_hist **cpy) // copy_process
 {
 	int		idx;
 
@@ -25,20 +25,20 @@ void		copy_process(t_hist **ori, t_hist **cpy)
 	(*cpy)->data.top = (*ori)->data.top;
 }
 
-void		hist_copy()
+void		copy_all_hist() //hist_copy
 {
 	t_hist	*hi;
 	t_hist	*thi;
 	t_hist	*temp;
 
 	hi = g_all.hist_start;
-	thi = g_all.thist_start;	
+	thi = g_all.thist_start;
 	if (hi)
 	{
 		while (hi)
 		{
 			temp = make_hs_node();
-			copy_process(&hi, &temp);
+			copy_hist(&hi, &temp);
 			add_back_hs_node(&g_all.thist_start, temp);
 			hi = hi->next;
 		}
@@ -58,7 +58,7 @@ void		free_t_hist(t_hist **freed_hist)
 		free(temp->data.tcarr);
 		ttemp = temp;
 		temp = temp->next;
-		free(ttemp);	
+		free(ttemp);
 	}
 	(*freed_hist) = NULL;
 }
@@ -67,7 +67,7 @@ void		free_copy_thist()
 {
 	if (g_all.thist_start != NULL)
 		free_t_hist(&g_all.thist_start);
-	hist_copy();
+	copy_all_hist();
 }
 
 void		link_thist_last_now()
@@ -78,5 +78,5 @@ void		link_thist_last_now()
 	while (temp->next)
 		temp = temp->next;
 	g_all.thist_now = temp;
-	g_all.tlast = temp;
+	g_all.thist_last = temp;
 }

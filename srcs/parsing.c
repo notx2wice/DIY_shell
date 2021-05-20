@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:29:54 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/18 14:16:06 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/19 17:10:28 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,35 @@ int				count_cmd(t_cmd_list *cmd)
 	return (idx);
 }
 
-t_split_two		*parsing(char *str_ori)
+int			add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
 {
+	int i;
+
+	i = 0;
+	while (str_cmd[i] != '\'' && str_cmd[i])
+	{
+		(*s_cmd)->str[(*s_cmd)->top++] = str_cmd[i];
+		i++;
+	}
+	return i;
+}
+
+void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd)
+{
+	(*last_cmd) = (t_split_one*)malloc(sizeof(t_split_one));
+	init_s_one(last_cmd);
+	add_back_one(first_cmd, (*last_cmd));
+}
+
+void	init_two(t_split_two **last_two, t_split_two **first_two)
+{
+	(*last_two) = (t_split_two*)malloc(sizeof(t_split_two));
+	init_s_two(last_two);
+	add_back_two(first_two, (*last_two));
+}
+
+t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는데 투로 리턴한다..
+{// 파싱 길이 실화냐..
 	int			idx;
 	int			tidx;
 	char		*cmd;
@@ -46,57 +73,43 @@ t_split_two		*parsing(char *str_ori)
 	first_cmd = NULL;
 	last_cmd = NULL;
 	first_two = NULL;
-	temp_redir = NULL;
-	
-	last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-	init_s_one(&last_cmd);
-	add_back_one(&first_cmd, last_cmd);
-	cmd = str_ori;
-	
+	temp_redir = NULL; //얘네 초기화안되나?
+	//void init_all_s_cmd() one과 two가 어떻게 나뉘어졌는지 알아봐야겠음.. 그리고 둘을 합친 구조체 만들수있는지도.
+	init_cmd(&last_cmd, &first_cmd);
+	cmd = str_ori; //char arr의 명령어 원본
 	idx = 0;
-	while (cmd[idx])
+	while (cmd[idx]) //명령어 파싱 시작
 	{
-		if (cmd[idx] == '|')
+		if (cmd[idx] == '|') //파이프일때 pipe
 		{
+			//현재 명령어에 수정
 			last_cmd->pipe_flag = 1;
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
 		}
-		else if (cmd[idx] == ';')
+		else if (cmd[idx] == ';') // semicolon
 		{
-			last_cmd->termi_flag = 1;
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			last_cmd->termi_flag = 1; //왜 termi?
+			init_cmd(&last_cmd, &first_cmd);
 		}
-		else if (cmd[idx] == '\'')
+		else if (cmd[idx] == '\'')//quote 변수로 만들어서 관리하면 좋을듯.
 		{
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
+
 			idx++;
-			last_cmd->quote_flag = 1;
-			while (cmd[idx] != '\'' && cmd[idx])
+			last_cmd->quote_flag = 1; //왜 전에 만든건 빈채로 내비두고 한개 더만든거에 플래그를 수정?
+			idx += add_cmd_txt(&last_cmd, &cmd[idx]);
+
+			if (!cmd[idx])// 명령어가 널문자라면? -> ' 하나만 있고 끝인 경우
 			{
-				last_cmd->str[last_cmd->top++] = cmd[idx];
-				idx++;
-			}
-			if (!cmd[idx])
-			{
-				printf("invalid\n");
+				printf("invalid\n"); // 종료
 				//free()
 				break;
 			}
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
 		}
 		else if (cmd[idx] == '\"')
 		{
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
 			idx++;
 			last_cmd->d_quote_flag = 1;
 			while (cmd[idx] != '\"' && cmd[idx])
@@ -110,9 +123,7 @@ t_split_two		*parsing(char *str_ori)
 				//free()
 				break;
 			}
-			last_cmd = (t_split_one*)malloc(sizeof(t_split_one));
-			init_s_one(&last_cmd);
-			add_back_one(&first_cmd, last_cmd);
+			init_cmd(&last_cmd, &first_cmd);
 		}
 		else if (cmd[idx] == '<' || cmd[idx] == '>')
 		{
@@ -267,7 +278,7 @@ t_split_two		*parsing(char *str_ori)
 						}
 						else if (last_cmd->split_str[idx][iidx + 1] == '?' || last_cmd->split_str[idx][iidx + 1] == '$')
 						{
-						
+
 						}
 						else
 						{
@@ -322,9 +333,7 @@ t_split_two		*parsing(char *str_ori)
 		last_cmd = last_cmd->next;
 	}
 
-	last_two = (t_split_two*)malloc(sizeof(t_split_two));
-	init_s_two(&last_two);
-	add_back_two(&first_two, last_two);
+	init_two(&last_two, &first_two);
 	last_cmd = first_cmd;
 	while (last_cmd)
 	{
@@ -365,7 +374,7 @@ t_split_two		*parsing(char *str_ori)
 				last_two->pipe_flag = 1;
 			else
 				last_two->termi_flag = 1;
-			// 새로운 노드를 붙여야 할 상황 
+			// 새로운 노드를 붙여야 할 상황
 			if (last_cmd->next != NULL)
 			{
 				//이거는 새로운 노드를 만들 필요 없이 종료해야징
@@ -376,7 +385,7 @@ t_split_two		*parsing(char *str_ori)
 		}
 		last_cmd = last_cmd->next;
 	}
-	
+
 	last_two = first_two;
 	while (last_two)
 	{
@@ -387,7 +396,7 @@ t_split_two		*parsing(char *str_ori)
 			{
 				if (ft_strncmp(tmp_cmd->str, ">>", 2) == 0)
 				{
-					temp_redir = (t_redir*)malloc(sizeof(t_redir)); 
+					temp_redir = (t_redir*)malloc(sizeof(t_redir));
 					init_redir_list(&temp_redir);
 					if (tmp_cmd->str[2]) //>>text>> <<의 경우 추가로 해결 해줘야함...
 					{
@@ -421,7 +430,7 @@ t_split_two		*parsing(char *str_ori)
 					init_redir_list(&temp_redir);
 					if (tmp_cmd->str[1]) //>>text의 경우
 					{
-						tmp_cmd->disable = 1; 
+						tmp_cmd->disable = 1;
 						temp_redir->out_flag = 1;
 						temp_redir->str = ft_substr(tmp_cmd->str, 1, ft_strlen(tmp_cmd->str) - 1);
 					}
@@ -503,7 +512,7 @@ t_split_two		*parsing(char *str_ori)
 		}
 		last_two = last_two->next;
 	}
-	
+
 	t_redir *new_redir = NULL;
 	last_two = first_two;
 	while (last_two)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:23:44 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/26 14:52:56 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/19 19:21:57 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,28 @@ void					init_s_one(t_split_one **one)
 	(*one)->str = (char*)malloc(sizeof(char) * BUFFS);
 }
 
+int					get_char_index(char *arr, char c)
+{
+	int i;
+
+	i = 0;
+	while (arr[i])
+	{
+		if(arr[i] == c)
+			break;
+		i++;
+	}
+	return i;
+}
+
+void		init_env(t_env **s_env)
+{
+	(*s_env) = (t_env*)malloc(sizeof(t_env));
+	(*s_env)->key = NULL;
+	(*s_env)->value = NULL;
+	(*s_env)->next = NULL;
+}
+
 void			get_env(char *env[], t_env **env_first)
 {
 	int			idx;
@@ -71,23 +93,14 @@ void			get_env(char *env[], t_env **env_first)
 	idx = 0;
 	while (env[idx])
 	{
-		e_idx = 0;
-		while (env[idx][e_idx])
-		{
-			if(env[idx][e_idx] == '=')
-				break;
-			e_idx++;
-		} //env 는 value 있는 것만 출력 되는 것 같은디
+		e_idx = get_char_index(env[idx], '=');
 		len = ft_strlen(env[idx]);
 		if (len == 0)
 		{
 			idx++;
 			continue ;
 		}
-		tmp_env = (t_env*)malloc(sizeof(t_env));
-		tmp_env->key = NULL;
-		tmp_env->value = NULL;
-		tmp_env->next = NULL; //****************** next도 널로 초기화 해주어야 하는 군!!
+		init_env(&tmp_env);
 		tmp_env->key = ft_substr(env[idx], 0, e_idx);
 		if (len - e_idx > 0)
 			tmp_env->value = ft_substr(env[idx], e_idx + 1, len - e_idx);
