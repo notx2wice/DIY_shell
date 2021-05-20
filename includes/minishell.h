@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/20 17:35:14 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/20 21:45:58 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,8 @@ void		get_env(char *env[], t_env **env_first);
 //parse
 t_split_two	*parsing(char *str_ori);
 char		*get_env_value_by_key(char *key);
+int			divide_with_ptqd(t_split_one **first_cmd, t_split_one **last_cmd, char *cmd);
+void		change_dollar_in_dq(t_split_one **first_cmd, t_split_one **last_cmd);
 
 //exec
 int			get_cmd_list_length(t_split_two *cmd);
