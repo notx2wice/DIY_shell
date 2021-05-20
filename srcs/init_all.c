@@ -24,12 +24,18 @@ void			init_thists()
 	g_all.thist_start = NULL;
 }
 
-void			init_all()
+void			init_all(char **env)
 {
+	get_env(env, &g_all.env_first);
+	signal(SIGQUIT, sighandler);
+	signal(SIGINT, sighandler);
 	g_all.exit_code = 0;
 	g_all.child = 0;
 	init_term();
 	cursor_win();
 	init_hists();
 	init_thists();
+	print_prompt();
+	copy_all_hist();
+	link_thist_last_now();
 }

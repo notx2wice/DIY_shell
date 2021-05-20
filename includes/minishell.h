@@ -147,7 +147,7 @@ void		delete_end(int *col, int *row, char *cm, char *ce);
 void		just_delete_end();
 
 //init
-void		init_all(void);
+void		init_all(char **env);
 void		init_term(void);
 void		init_s_two(t_split_two **two);
 void		init_redir_list(t_redir **r_list);

@@ -79,20 +79,12 @@ int					main(int ac, char **av, char *env[])
 	int				c;
 	(void)ac;
 	(void)av;
-	(void)env;
 
 	t_hist			*temp;
 	t_hist			*ttemp;
 	t_split_two		*now_cmd;
 	g_all.hist_last = NULL;
-	get_env(env, &g_all.env_first);
-	signal(SIGQUIT, sighandler);
-	signal(SIGINT, sighandler);
-	init_all();
-	print_prompt();
-	// free_t_hist(&g_all.thist_start);
-	copy_all_hist();
-	link_thist_last_now();
+	init_all(env);
 	while (read(0, &c, sizeof(int)))
 	{
 		get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
