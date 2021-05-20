@@ -74,6 +74,28 @@ void				add_new_hist()
 
 }
 
+void				up_arrow_execute()
+{
+	if (g_all.hist_now->prev)
+	{
+		clear_all_command_line();
+		g_all.hist_now = g_all.hist_now->prev; // 바로 위 히스토리로 현재를 덮어씌움
+		g_all.thist_now = g_all.thist_now->prev;
+		write(1, g_all.hist_now->data.tcarr, *hist_now_data_top);
+	}
+}
+
+void			down_arrow_excute()
+{
+	if (g_all.hist_now->next)
+	{
+		clear_all_command_line();
+		g_all.hist_now = g_all.hist_now->next;
+		g_all.thist_now = g_all.thist_now->next;
+		write(1, g_all.hist_now->data.tcarr, *hist_now_data_top);
+	}
+}
+
 void				next_line_execute()
 {
 {
@@ -123,30 +145,14 @@ void				key_execute()
 		exit(g_all.exit_code); // 종료시 종료 인자 전달
 	}
 	else if (c == UP_ARROW)
-	{
-		if (g_all.hist_now->prev)
-		{
-			clear_all_command_line();
-			g_all.hist_now = g_all.hist_now->prev; // 바로 위 히스토리로 현재를 덮어씌움
-			g_all.thist_now = g_all.thist_now->prev;
-			write(1, g_all.hist_now->data.tcarr, *hist_now_data_top);
-		}
-	}
+		up_arrow_execute();
 	else if (c == DOWN_ARROW)
-	{
-		if (g_all.hist_now->next)
-		{
-			clear_all_command_line();
-			g_all.hist_now = g_all.hist_now->next;
-			g_all.thist_now = g_all.thist_now->next;
-			write(1, g_all.hist_now->data.tcarr, *hist_now_data_top);
-		}
-	}
+		down_arrow_execute();
 	else if (c == BACKSPACE) // 지우기 누를때
 		delete_end(&g_all.tc.curcol, &g_all.tc.currow, g_all.tc.cm, g_all.tc.ce); // 지워지세요
 	else if (c == NEXT_LINE) // \n 엔터 들어왔을때
 	{
-		next_line_execute()
+		next_line_execute();
 	}
 	else // maybe c should have short range for printable char
 	{
