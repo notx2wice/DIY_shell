@@ -238,5 +238,6 @@ void	next_line_execute();
 void	print_new_line_and_prompt();
 void	re_init_thist();
 void	null_init_hist_and_thist();
+void	sighandler(int sig_num);
 
 #endif
