@@ -3,7 +3,7 @@ NAME = minishell
 SRC = minishell.c show_something.c termcap.c cursor_move.c \
 		init_all.c double_list_util.c utils.c list_utils.c \
 		list_utils2.c parsing.c free_something.c error.c \
-		error2.c 
+		error2.c key_execute.c history.c
 
 EXEC = do_cmd.c do_not_built_in_cmd.c exec_cd.c exec_echo.c \
 		exec_env.c exec_exit.c exec_export.c exec_pwd.c \

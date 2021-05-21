@@ -14,6 +14,9 @@
 
 void			up_arrow_execute()
 {
+	int				*hist_now_data_top;
+
+	hist_now_data_top = &(g_all.hist_now->data.top);
 	if (g_all.hist_now->prev)
 	{
 		clear_all_command_line();
@@ -23,8 +26,11 @@ void			up_arrow_execute()
 	}
 }
 
-void			down_arrow_excute()
+void			down_arrow_execute()
 {
+	int				*hist_now_data_top;
+
+	hist_now_data_top = &(g_all.hist_now->data.top);
 	if (g_all.hist_now->next)
 	{
 		clear_all_command_line();
@@ -47,15 +53,15 @@ void			next_line_execute()
 		{
 			re_init_thist();
 			print_new_line_and_prompt();
-			continue ;
+			return ;
 		}
 	}
 	else if (*hist_now_data_top == 0)
 	{
 		print_new_line_and_prompt();
-		continue ;
+		return ;
 	}
-	g_all.hist_now->data.tcarr[hist_now_data_top] = '\0';
+	g_all.hist_now->data.tcarr[*hist_now_data_top] = '\0';
 	now_cmd = parsing(g_all.hist_now->data.tcarr); //현재명령 tcarr이 도대체 머임
 	write(1, "\n", 1);
 	if (now_cmd != NULL)
@@ -72,7 +78,7 @@ void			key_execute(int c)
 	if (c == EOF_KEY) // cntl + d
 	{
 		if (*hist_now_data_top != 0)
-			continue;
+			return ;
 		write(1, "exit\n", 5);
 		exit(g_all.exit_code); // 종료시 종료 인자 전달
 	}

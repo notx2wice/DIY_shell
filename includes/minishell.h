@@ -233,11 +233,12 @@ void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd);
 void	init_two(t_split_two **last_two, t_split_two **first_two);
 void	key_execute(int c);
 void	up_arrow_execute();
-void	down_arrow_excute();
+void	down_arrow_execute();
 void	next_line_execute();
 void	print_new_line_and_prompt();
 void	re_init_thist();
 void	null_init_hist_and_thist();
 void	sighandler(int sig_num);
+void	add_new_hist();
 
 #endif

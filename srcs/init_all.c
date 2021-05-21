@@ -39,6 +39,6 @@ void			init_all(char **env)
 	g_all.child = 0;
 	init_term();
 	cursor_win();
-	init_null_hist_and_thist();
+	null_init_hist_and_thist();
 	print_prompt();
 }
