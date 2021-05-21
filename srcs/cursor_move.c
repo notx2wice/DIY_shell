@@ -15,35 +15,48 @@
 void	delete_end()
 {
 	if(g_all.hist_now->data.top > 0)
-	{	
+	{
+		if (g_all.tc.curcol <= 0 || g_all.tc.currow <= 0)
+			return ;
 		if (g_all.tc.curcol == 0)
 		{
-			tputs(tgoto(g_all.tc.cm, g_all.tc.col - 1, g_all.tc.currow - 1), 1, putchar_tc); // 커서를 커서 주소까지 이동
+			g_all.tc.currow--;
+			g_all.tc.curcol = g_all.tc.col - 1;
+			tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
 			tputs(g_all.tc.ce, 1, putchar_tc); // 커서 뒤에 있는 스트링을 지워줌
 			g_all.hist_now->data.top--; // 현재 명령줄 문자열 위치를 수정해줌
 		}
-		else if (g_all.tc.curcol > 0)
+		else
 		{
-			g_all.hist_now->data.top--;
-			tputs(tgoto(g_all.tc.cm, g_all.tc.curcol - 1, g_all.tc.currow), 1, putchar_tc);
+			g_all.tc.curcol--;
+			tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
 			tputs(g_all.tc.ce, 1, putchar_tc);
+			g_all.hist_now->data.top--;
 		}
 	}
-	get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
 }
 
 void	just_delete_end()
 {
-	if (g_all.tc.curcol == 0)
+	if (g_all.tc.curcol == 0 && g_all.tc.currow > 0)
 	{
-		tputs(tgoto(g_all.tc.cm, g_all.tc.col - 1, g_all.tc.currow - 1), 1, putchar_tc);
+		g_all.tc.currow--;
+		g_all.tc.curcol = g_all.tc.col - 1;
+		tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
 		tputs(g_all.tc.ce, 1, putchar_tc);
 	}
 	else if (g_all.tc.curcol > 0)
 	{
+		get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
+		g_all.tc.curcol = g_all.tc.curcol - 1;
 		tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
 		tputs(g_all.tc.ce, 1, putchar_tc);
 	}
+	// else
+	// {
+	// 	printf("\n안지워졌어용\n");
+	// }
+
 }
 
 void	clear_all_command_line()
@@ -55,4 +68,5 @@ void	clear_all_command_line()
 	{
 		just_delete_end();
 	}
+	// printf(" top : %d\n", g_all.hist_now->data.top);
 }

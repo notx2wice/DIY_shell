@@ -61,18 +61,6 @@ int	nbr_length(int n)
 	return (i);
 }
 
-void	free_buf(char *buf)
-{
-	int i;
-
-	i = 0;
-	while(buf[i])
-	{
-		buf[i] = 0;
-		i++;
-	}
-}
-
 void	get_cursor_position(int *col, int *rows)
 {
 	int		a;

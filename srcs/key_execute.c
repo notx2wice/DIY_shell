@@ -30,12 +30,12 @@ void			down_arrow_execute(void)
 {
 	int				*hist_now_data_top;
 
-	hist_now_data_top = &(g_all.hist_now->data.top);
 	if (g_all.hist_now->next)
 	{
 		clear_all_command_line();
 		g_all.hist_now = g_all.hist_now->next;
 		g_all.thist_now = g_all.thist_now->next;
+		hist_now_data_top = &(g_all.hist_now->data.top);
 		write(1, g_all.hist_now->data.tcarr, *hist_now_data_top);
 	}
 }
@@ -106,7 +106,7 @@ void			key_execute(int c)
 		write(1, &word, 1);
 		g_all.hist_now->data.tcarr[*hist_now_data_top] = word;
 		g_all.hist_now->data.top++;
+		g_all.tc.curcol++;
 	}
-	else
-		tcflush(0, TCIFLUSH);
+	tcflush(0, TCIFLUSH);
 }
