@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:29:54 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 15:32:47 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 16:31:39 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,116 +93,11 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 	change_dollar_in_dq(&first_cmd, &last_cmd);
 	change_dollar_in_cmd(&first_cmd, &last_cmd);
 	make_two_by_one(&first_cmd, &last_cmd, &first_two, &last_two);
-
-	char *temp_str;
-	char *front_str;
-	char *final_str;
-	int sidx = 0;
-	int iidx = 0;
-	last_two = first_two;
-	while (last_two)
+	if (make_redir_total(&first_two, &last_two) == 0)
 	{
-		if (last_two->redir_flag)
-		{
-			tmp_cmd = last_two->cmd_first;
-			while (tmp_cmd)
-			{
-				if (ft_strncmp(tmp_cmd->str, ">>", 2) == 0)
-				{
-					temp_redir = (t_redir*)malloc(sizeof(t_redir));
-					init_redir_list(&temp_redir);
-					if (tmp_cmd->str[2])
-					{
-						tmp_cmd->disable = 1;
-						temp_redir->d_out_flag = 1;
-						temp_redir->str = ft_substr(tmp_cmd->str, 2, ft_strlen(tmp_cmd->str) - 2);
-					}
-					else
-					{
-						if (tmp_cmd->next == NULL)
-						{
-							syntax_error();
-							break;
-						}
-						tmp_cmd->disable = 1;
-						temp_redir->d_out_flag = 1;
-						tmp_cmd = tmp_cmd->next;
-						if (ft_strncmp(tmp_cmd->str, "<", 1) == 0 || ft_strncmp(tmp_cmd->str, ">", 1) == 0)
-						{
-							syntax_error();
-							return NULL;
-						}
-						tmp_cmd->disable = 1;
-						temp_redir->str = ft_strdup(tmp_cmd->str);
-					}
-					add_back_redir(&last_two->redir_first, temp_redir);
-				}
-				else if (ft_strncmp(tmp_cmd->str, ">", 1) == 0)
-				{
-					temp_redir = (t_redir*)malloc(sizeof(t_redir));
-					init_redir_list(&temp_redir);
-					if (tmp_cmd->str[1])
-					{
-						tmp_cmd->disable = 1;
-						temp_redir->out_flag = 1;
-						temp_redir->str = ft_substr(tmp_cmd->str, 1, ft_strlen(tmp_cmd->str) - 1);
-					}
-					else
-					{
-						if (tmp_cmd->next == NULL)
-						{
-							syntax_error();
-							return NULL;
-						}
-						tmp_cmd->disable = 1;
-						temp_redir->out_flag = 1;
-						tmp_cmd = tmp_cmd->next;
-						if (ft_strncmp(tmp_cmd->str, "<", 1) == 0 || ft_strncmp(tmp_cmd->str, ">", 1) == 0)
-						{
-							syntax_error();
-							return NULL;
-						}
-						tmp_cmd->disable = 1;
-						temp_redir->str = ft_strdup(tmp_cmd->str);
-					}
-					add_back_redir(&last_two->redir_first, temp_redir);
-				}
-				else if (ft_strncmp(tmp_cmd->str, "<", 1) == 0)
-				{
-					temp_redir = (t_redir*)malloc(sizeof(t_redir));
-					init_redir_list(&temp_redir);
-					if (tmp_cmd->str[1])
-					{
-						tmp_cmd->disable = 1;
-						temp_redir->in_flag = 1;
-						temp_redir->str = ft_substr(tmp_cmd->str, 1, ft_strlen(tmp_cmd->str) - 1);
-					}
-					else
-					{
-						if (tmp_cmd->next == NULL)
-						{
-							syntax_error();
-							return NULL;
-						}
-						tmp_cmd->disable = 1;
-						temp_redir->in_flag = 1;
-						tmp_cmd = tmp_cmd->next;
-						if (ft_strncmp(tmp_cmd->str, "<", 1) == 0 || ft_strncmp(tmp_cmd->str, ">", 1) == 0)
-						{
-							syntax_error();
-							return NULL;
-						}
-						tmp_cmd->disable = 1;
-						temp_redir->str = ft_strdup(tmp_cmd->str);
-					}
-					add_back_redir(&last_two->redir_first, temp_redir);
-				}
-				tmp_cmd = tmp_cmd->next;
-			}
-		}
-		last_two = last_two->next;
+		syntax_error();
+		return (NULL);
 	}
-	
 	free_one(&first_cmd);
 	int cmd_cnt;
 	idx = 0;
