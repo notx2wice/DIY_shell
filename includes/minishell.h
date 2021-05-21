@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/20 21:45:58 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 13:16:09 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define UP_ARROW 4283163
 # define DOWN_ARROW 4348699
 # define NEXT_LINE 10
-# define BUFFS 4000 //버퍼가 4000이여도 괜차는건가? 1024는어떤감.. 버퍼가 1024면 효율이 조타더넫..
+# define BUFFS 4000
 # define PROMPT_SIZE 6
 # define EXIT_SUCCESS 0
 
@@ -192,6 +192,9 @@ t_split_two	*parsing(char *str_ori);
 char		*get_env_value_by_key(char *key);
 int			divide_with_ptqd(t_split_one **first_cmd, t_split_one **last_cmd, char *cmd);
 void		change_dollar_in_dq(t_split_one **first_cmd, t_split_one **last_cmd);
+void		find_value_insert(char *cnv, char *t_e_key, int *idx);
+void		make_start_end(int *idx, int *start, int *end, t_split_one **lc);
+void		change_dollar_in_cmd(t_split_one **fc, t_split_one **lc);
 
 //exec
 int			get_cmd_list_length(t_split_two *cmd);
