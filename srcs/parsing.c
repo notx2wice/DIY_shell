@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:29:54 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 13:14:51 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 15:32:47 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,20 @@ void	init_two(t_split_two **last_two, t_split_two **first_two)
 	add_back_two(first_two, (*last_two));
 }
 
+void			make_strend_null(t_split_one **fc, t_split_one **lc)
+{
+	(*lc) = (*fc);
+	while ((*lc))
+	{
+		(*lc)->str[(*lc)->top] = '\0';
+		(*lc) = (*lc)->next;
+	}
+}
+
 t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는데 투로 리턴한다..
 {
 	int			idx;
 	int			tidx;
-	char		*cmd;
 	char		*cnv_d_quoat;
 	char		*temp_env_key;
 	char		*temp_env_value;
@@ -75,77 +84,21 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 	first_two = NULL;
 	temp_redir = NULL;
 	init_cmd(&last_cmd, &first_cmd);
-	cmd = str_ori;
-	if (divide_with_ptqd(&first_cmd, &last_cmd, cmd) == 0)
+	if (divide_with_ptqd(&first_cmd, &last_cmd, str_ori) == 0)
 	{
 		syntax_error();
-		return NULL;
+		return (NULL);
 	}
-	last_cmd = first_cmd;
-	while (last_cmd)
-	{
-		last_cmd->str[last_cmd->top] = '\0';
-		last_cmd = last_cmd->next;
-	}
-	last_cmd = first_cmd;
+	make_strend_null(&first_cmd, &last_cmd);
 	change_dollar_in_dq(&first_cmd, &last_cmd);
-	last_cmd = first_cmd;
 	change_dollar_in_cmd(&first_cmd, &last_cmd);
+	make_two_by_one(&first_cmd, &last_cmd, &first_two, &last_two);
+
 	char *temp_str;
 	char *front_str;
 	char *final_str;
 	int sidx = 0;
 	int iidx = 0;
-	
-	init_two(&last_two, &first_two);
-	last_cmd = first_cmd;
-	while (last_cmd)
-	{
-		if (last_cmd->disable)
-		{
-			last_cmd = last_cmd->next;
-			continue ;
-		}
-		if (last_cmd->quote_flag || last_cmd->d_quote_flag)
-		{
-			tmp_cmd = (t_cmd_list*)malloc(sizeof(t_cmd_list));
-			init_cmd_list(&tmp_cmd);
-			tmp_cmd->str = ft_strdup(last_cmd->str);
-			add_back_cmd(&last_two->cmd_first, tmp_cmd);
-		}
-		else
-		{
-			idx = 0;
-			while (last_cmd->split_str[idx])
-			{
-				tmp_cmd = (t_cmd_list*)malloc(sizeof(t_cmd_list));
-				init_cmd_list(&tmp_cmd);
-				tmp_cmd->str = ft_strdup(last_cmd->split_str[idx]);
-				add_back_cmd(&last_two->cmd_first, tmp_cmd);
-				idx++;
-			}
-		}
-		if (last_cmd->redir_flag)
-		{
-			last_two->redir_flag = 1;
-			last_two->redir_first = last_cmd->redir_first;
-			last_cmd->redir_first = NULL;
-		}
-		if (last_cmd->pipe_flag || last_cmd->termi_flag)
-		{
-			if (last_cmd->pipe_flag)
-				last_two->pipe_flag = 1;
-			else
-				last_two->termi_flag = 1;
-			if (last_cmd->next != NULL)
-			{
-				last_two = (t_split_two*)malloc(sizeof(t_split_two));
-				init_s_two(&last_two);
-				add_back_two(&first_two, last_two);
-			}
-		}
-		last_cmd = last_cmd->next;
-	}
 	last_two = first_two;
 	while (last_two)
 	{
@@ -249,6 +202,7 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 		}
 		last_two = last_two->next;
 	}
+	
 	free_one(&first_cmd);
 	int cmd_cnt;
 	idx = 0;

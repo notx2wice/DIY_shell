@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 10:59:59 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 13:36:48 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 13:47:54 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void		it_is_in_split(t_split_one **fc, t_split_one **lc)
 
 void		change_dollar_in_cmd(t_split_one **fc, t_split_one **lc)
 {
+	(*lc) = (*fc);
 	while ((*lc))
 	{
 		if ((*lc)->d_quote_flag == 0 && (*lc)->quote_flag == 0)

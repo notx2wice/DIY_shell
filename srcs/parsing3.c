@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 20:54:26 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 13:25:28 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 13:47:27 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void		it_is_in_dq(t_split_one **fc, t_split_one **lc)
 
 void		change_dollar_in_dq(t_split_one **fc, t_split_one **lc)
 {
+	(*lc) = (*fc);
 	while ((*lc))
 	{
 		if ((*lc)->d_quote_flag)

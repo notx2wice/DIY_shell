@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 13:16:09 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 15:29:44 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void		change_dollar_in_dq(t_split_one **first_cmd, t_split_one **last_cmd);
 void		find_value_insert(char *cnv, char *t_e_key, int *idx);
 void		make_start_end(int *idx, int *start, int *end, t_split_one **lc);
 void		change_dollar_in_cmd(t_split_one **fc, t_split_one **lc);
+void		make_two_by_one(t_split_one **fc, t_split_one **lc, t_split_two **ft, t_split_two **lt);
 
 //exec
 int			get_cmd_list_length(t_split_two *cmd);
