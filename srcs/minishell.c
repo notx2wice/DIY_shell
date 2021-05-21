@@ -14,10 +14,10 @@
 
 t_all	g_all;
 
-void				sighandler(int sig_num)
+void	sighandler(int sig_num)
 {
-	if (sig_num == SIGINT) // cntl + c
-	{	//이때 문자열 입력을 받는 버퍼를 날리고 새로 할당 한후 커런트로 이어 줘야함.
+	if (sig_num == SIGINT)
+	{
 		if (g_all.child == 1)
 		{
 			g_all.exit_code = 130;
@@ -32,7 +32,7 @@ void				sighandler(int sig_num)
 		}
 		return ;
 	}
-	if (sig_num == SIGQUIT) // cntl + back slash
+	if (sig_num == SIGQUIT)
 	{
 		if (g_all.child == 1)
 		{
@@ -43,21 +43,23 @@ void				sighandler(int sig_num)
 	}
 }
 
-void		print_new_line_and_prompt()
+void	print_new_line_and_prompt(void)
 {
 	write(1, "\n", 1);
 	write(1, "mini> ", PROMPT_SIZE);
 }
 
-int					main(int ac, char **av, char *env[])
+int		main(int ac, char **av, char *env[])
 {
 	int		c;
 
 	init_all(env);
+	c = 0;
 	while (read(0, &c, sizeof(int)))
 	{
 		get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
 		key_execute(c);
 		c = 0;
 	}
+	
 }

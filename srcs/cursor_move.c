@@ -14,24 +14,23 @@
 
 void	delete_end()
 {
+	get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
 	if(g_all.hist_now->data.top > 0)
-	{
+	{	
 		if (g_all.tc.curcol == 0)
 		{
-			--g_all.tc.currow;
-			g_all.tc.curcol = g_all.tc.col - 1;
-			tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc); // 커서를 커서 주소까지 이동
+			tputs(tgoto(g_all.tc.cm, g_all.tc.col - 1, g_all.tc.currow - 1), 1, putchar_tc); // 커서를 커서 주소까지 이동
 			tputs(g_all.tc.ce, 1, putchar_tc); // 커서 뒤에 있는 스트링을 지워줌
 			g_all.hist_now->data.top--; // 현재 명령줄 문자열 위치를 수정해줌
 		}
-		else
+		else if (g_all.tc.curcol > 0)
 		{
 			g_all.hist_now->data.top--;
-			--g_all.tc.curcol;
-			tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
+			tputs(tgoto(g_all.tc.cm, g_all.tc.curcol - 1, g_all.tc.currow), 1, putchar_tc);
 			tputs(g_all.tc.ce, 1, putchar_tc);
 		}
 	}
+	get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
 }
 
 void	just_delete_end()

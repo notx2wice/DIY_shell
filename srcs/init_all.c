@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void			null_init_hist_and_thist()
+void			null_init_hist_and_thist(void)
 {
 	g_all.hist_now = NULL;
 	g_all.hist_start = NULL;
@@ -22,7 +22,7 @@ void			null_init_hist_and_thist()
 	g_all.thist_last = NULL;
 }
 
-void			re_init_thist()
+void			re_init_thist(void)
 {
 	free_t_hist(&g_all.thist_start);
 	copy_all_hist();

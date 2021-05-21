@@ -32,13 +32,13 @@ void				add_new_hist()
 {
 	t_hist			*temp;
 
-	temp = make_hs_node();
-	copy_hist(&g_all.hist_now, &temp);
-	copy_hist(&g_all.thist_now, &g_all.hist_now);
-	g_all.hist_last->prev->next = temp; //hist_start인데 왜 hist_last가 아닌것인가..
-	temp->prev = g_all.hist_last->prev;
-	free_t_hist(&g_all.hist_last);
-	g_all.hist_last = temp;
-	g_all.hist_now = g_all.hist_last;
+	temp = make_hs_node(); // 새 히스토리를 만든다
+	copy_hist(&g_all.hist_now, &temp); // 새 히스토리의 내용을 now 히스토리로 바꾼다.
+	copy_hist(&g_all.thist_now, &g_all.hist_now); // now 히스토리의 내용을 thist now로 바꾼다
+	g_all.hist_last->prev->next = temp; // 새로 만든 히스토리를 뒤에 추가한다
+	temp->prev = g_all.hist_last->prev; // 새로 만든 히스토리의 전 포인터를 연결한다.
+	// free_t_hist(&g_all.hist_last); // 
+	g_all.hist_last = temp; //새로 만든 히스토리로 last를 초기화한다.
+	g_all.hist_now = g_all.hist_last; // 현재 보고 있는 히스토리를 새로만든 히스토리로 수정한다.
 
 }
