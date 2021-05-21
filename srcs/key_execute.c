@@ -70,7 +70,7 @@ void			next_line_execute(void)
 	}
 	else if (empty_hist_now())
 		return ;
-	g_all.hist_now->data.tcarr[*hist_now_data_top] = '\0';
+	g_all.hist_now->data.tcarr[g_all.hist_now->data.top] = '\0';
 	now_cmd = parsing(g_all.hist_now->data.tcarr);
 	write(1, "\n", 1);
 	if (now_cmd != NULL)

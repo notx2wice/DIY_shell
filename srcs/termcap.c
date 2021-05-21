@@ -61,17 +61,31 @@ int	nbr_length(int n)
 	return (i);
 }
 
+void	free_buf(char *buf)
+{
+	int i;
+
+	i = 0;
+	while(buf[i])
+	{
+		buf[i] = 0;
+		i++;
+	}
+}
+
 void	get_cursor_position(int *col, int *rows)
 {
-	int		a = 0;
-	int		i = 1;
+	int		a;
+	int		i;
 	char	buf[50];
 	int		ret;
 	int		temp;
 
-	write(1, "\033[6n", 5);//report cursor location
+	write(1, "\033[6n", 5);
 	ret = read(1, buf, 49);
 	buf[ret] = '\0';
+	a = 0;
+	i = 1;
 	while (buf[i])
 	{
 		if (buf[i] >= '0' && buf[i] <= '9')
@@ -81,7 +95,8 @@ void	get_cursor_position(int *col, int *rows)
 			else
 			{
 				temp = ft_atoi(&buf[i]);
-				*col = temp - 1;
+				if (temp != 0)
+					*col = temp - 1;
 			}
 			a++;
 			i += nbr_length(temp) - 1;
