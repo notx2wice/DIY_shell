@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 20:54:26 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 13:47:27 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 18:07:10 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@ void		case_question(char *cnv, int *idx)
 		}
 	idx[0] = idx[0] + 2;
 	free(nbr);
-}
-
-void		make_start_end(int *idx, int *start, int *end, t_split_one **lc)
-{
-	(*start) = (*idx);
-	while ((*lc)->str[(*idx)] != '\0' && (*lc)->str[(*idx)] != ' ' &&\
-			(*lc)->str[(*idx)] != '$')
-		(*idx)++;
-	(*end) = (*idx);
 }
 
 void		find_value_insert(char *cnv, char *t_e_key, int *idx)
@@ -64,21 +55,6 @@ void		find_value_insert(char *cnv, char *t_e_key, int *idx)
 		}
 		tmp_env = tmp_env->next;
 	}
-}
-
-void		chng_dllr_end_process(t_split_one **lc, char *cnv, int *idx)
-{
-	cnv[idx[1]] = '\0';
-	free((*lc)->str);
-	(*lc)->str = NULL;
-	(*lc)->str = cnv;
-}
-
-void		chng_dllr_start_process(char **cnv, int *idx)
-{
-	idx[0] = 0;
-	idx[1] = 0;
-	(*cnv) = (char*)malloc(sizeof(char) * BUFFS);
 }
 
 void		for_norm_shit(char *cnv, t_split_one **lc, int *idx)

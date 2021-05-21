@@ -6,46 +6,18 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 10:59:59 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 13:47:54 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 18:08:26 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void		make_st_end2(int *st, int *idx, t_split_one **lc)
-{
-	st[0] = idx[2];
-	while ((*lc)->split_str[idx[0]][idx[2]] != '\0' && \
-			(*lc)->split_str[idx[0]][idx[2]] != ' ' && \
-			(*lc)->split_str[idx[0]][idx[2]] != '$')
-	{
-		idx[2]++;
-	}
-	st[1] = idx[2];
-}
-
-void		chng_dllr_start_process2(char **cnv, int *idx)
-{
-	idx[1] = 0;
-	idx[2] = 0;
-	(*cnv) = (char*)malloc(sizeof(char) * BUFFS);
-}
-
-void		chng_dllr_end_process2(t_split_one **lc, char *cnv, int *idx)
-{
-	cnv[idx[1]] = '\0';
-	free((*lc)->split_str[idx[0]]);
-	(*lc)->split_str[idx[0]] = NULL;
-	(*lc)->split_str[idx[0]] = cnv;
-	idx[0]++;
-}
 
 void		case_q_dllr(t_split_one **lc, char *cnv, int *idx)
 {
 	int		nbx;
 	char	*nbr;
 
-	if ((*lc)->split_str[idx[0]][idx[2] + 1] == '?' )
+	if ((*lc)->split_str[idx[0]][idx[2] + 1] == '?')
 	{
 		nbx = 0;
 		nbr = NULL;
@@ -111,7 +83,8 @@ void		change_dollar_roop(t_split_one **lc, int *idx, char *cnv, int *st)
 				t_e_key = NULL;
 				idx[2]++;
 				make_st_end2(st, idx, lc);
-				t_e_key = ft_substr((*lc)->split_str[idx[0]], st[0], st[1] - st[0]);
+				t_e_key = \
+				ft_substr((*lc)->split_str[idx[0]], st[0], st[1] - st[0]);
 				find_value_insert2(cnv, t_e_key, idx);
 			}
 		else

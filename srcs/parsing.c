@@ -6,27 +6,13 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:29:54 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 17:53:40 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 18:04:58 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int				count_cmd(t_cmd_list *cmd)
-{
-	int			idx;
-
-	idx = 0;
-	while (cmd)
-	{
-		if (cmd->disable == 0)
-			idx++;
-		cmd = cmd->next;
-	}
-	return (idx);
-}
-
-int			add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
+int				add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
 {
 	int i;
 
@@ -36,17 +22,17 @@ int			add_cmd_txt(t_split_one **s_cmd, char *str_cmd)
 		(*s_cmd)->str[(*s_cmd)->top++] = str_cmd[i];
 		i++;
 	}
-	return i;
+	return (i);
 }
 
-void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd)
+void			init_cmd(t_split_one **last_cmd, t_split_one **first_cmd)
 {
 	(*last_cmd) = (t_split_one*)malloc(sizeof(t_split_one));
 	init_s_one(last_cmd);
 	add_back_one(first_cmd, (*last_cmd));
 }
 
-void	init_two(t_split_two **last_two, t_split_two **first_two)
+void			init_two(t_split_two **last_two, t_split_two **first_two)
 {
 	(*last_two) = (t_split_two*)malloc(sizeof(t_split_two));
 	init_s_two(last_two);
@@ -63,12 +49,12 @@ void			make_strend_null(t_split_one **fc, t_split_one **lc)
 	}
 }
 
-t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는데 투로 리턴한다..
+t_split_two		*parsing(char *str_ori)
 {
 	t_split_one	*first_cmd;
-	t_split_one *last_cmd;
-	t_split_two *first_two;
-	t_split_two *last_two;
+	t_split_one	*last_cmd;
+	t_split_two	*first_two;
+	t_split_two	*last_two;
 
 	first_cmd = NULL;
 	first_two = NULL;
@@ -88,7 +74,6 @@ t_split_two		*parsing(char *str_ori) //스플릿 원과 투 구조체가 있는�
 		return (NULL);
 	}
 	make_list_2d_arr(&first_two, &last_two);
-	make_in_out_redir_list(&first_two, &last_two);
-	free_one(&first_cmd);
+	make_in_out_r_lst(&first_two, &last_two, &first_cmd);
 	return (first_two);
 }

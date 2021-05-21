@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 17:26:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 17:52:01 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 18:03:01 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void			when_out_flag(t_redir **n_re, t_split_two **lt, t_redir *tmp_re)
 	add_back_redir(&(*lt)->redir_out, *n_re);
 }
 
-void			make_in_out_redir_list(t_split_two **ft, t_split_two **lt)
+void			make_in_out_r_lst(t_split_two **ft, t_split_two **lt,\
+				t_split_one **ff)
 {
 	t_redir		*n_re;
 	t_redir		*tmp_re;
@@ -88,4 +89,5 @@ void			make_in_out_redir_list(t_split_two **ft, t_split_two **lt)
 		}
 		(*lt) = (*lt)->next;
 	}
+	free_one(ff);
 }

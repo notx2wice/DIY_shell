@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 17:52:22 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 18:15:01 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,12 @@ void		make_two_by_one(t_split_one **fc, t_split_one **lc, t_split_two **ft, t_sp
 int			make_redir_total(t_split_two **ft, t_split_two **lt);
 void		make_list_2d_arr(t_split_two **ft, t_split_two **lt);
 int			count_cmd(t_cmd_list *cmd);
-void		make_in_out_redir_list(t_split_two **ft, t_split_two **lt);
+void		make_in_out_r_lst(t_split_two **ft, t_split_two **lt, t_split_one **ff);
+void		chng_dllr_end_process(t_split_one **lc, char *cnv, int *idx);
+void		chng_dllr_start_process(char **cnv, int *idx);
+void		make_st_end2(int *st, int *idx, t_split_one **lc);
+void		chng_dllr_start_process2(char **cnv, int *idx);
+void		chng_dllr_end_process2(t_split_one **lc, char *cnv, int *idx);
 
 //exec
 int			get_cmd_list_length(t_split_two *cmd);
