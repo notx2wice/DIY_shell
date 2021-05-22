@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/20 12:59:06 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/23 00:13:16 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,14 @@ int					main(int ac, char **av, char *env[])
 	// free_t_hist(&g_all.thist_start);
 	copy_all_hist();
 	link_thist_last_now();
+	c = 0;
 	while (read(0, &c, sizeof(int)))
 	{
 		get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
 		if (c == EOF_KEY) // cntl + d
 		{
+			if (g_all.child == 1)
+				write(1, "exit\n", 5);
 			if (g_all.hist_now->data.top != 0)
 				continue;
 			write(1, "exit\n", 5);

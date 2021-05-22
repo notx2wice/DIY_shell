@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 20:20:00 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/22 23:42:13 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/23 01:34:19 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		meet_q(t_split_one **fc, t_split_one **lc, int *idx, char *cmd)
 	init_cmd(lc, fc);
 	(*idx)++;
 	(*lc)->quote_flag = 1;
-	idx += add_cmd_txt(&(*lc), &cmd[(*idx)]);
+	(*idx) += add_cmd_txt(&(*lc), &cmd[(*idx)]);
 	if (!cmd[(*idx)])
 		return (0);
 	init_cmd(lc, fc);
