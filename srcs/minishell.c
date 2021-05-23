@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/23 00:13:16 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/23 18:22:16 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,13 @@ int					main(int ac, char **av, char *env[])
 			now_cmd = parsing(g_all.hist_now->data.tcarr); //현재명령 tcarr이 도대체 머임
 			g_all.hist_now = g_all.hist_last;
 			write(1, "\n", 1);
+			g_all.tc.term.c_lflag |= ICANON;
+			tcsetattr(0, TCSANOW, &g_all.tc.term);
 			if (now_cmd != NULL)
 				exec_command(now_cmd);
 			print_prompt();
+			g_all.tc.term.c_lflag &= ~ICANON;
+			tcsetattr(0, TCSANOW, &g_all.tc.term);
 			free_t_hist(&g_all.thist_start);
 			copy_all_hist();
 			link_thist_last_now();
