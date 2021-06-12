@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 18:15:01 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 15:54:58 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,14 +140,13 @@ extern t_all			g_all;
 
 void		print_prompt(void);
 int			putchar_tc(int tc);
-int			nbr_length(int n);
 void		cursor_win(void);
 void		get_cursor_position(int *col, int *rows);
-void		delete_end(int *col, int *row, char *cm, char *ce);
+void		delete_end();
 void		just_delete_end();
 
 //init
-void		init_all(void);
+void		init_all(char **env);
 void		init_term(void);
 void		init_s_two(t_split_two **two);
 void		init_redir_list(t_redir **r_list);
@@ -168,8 +167,6 @@ t_hist		*make_hs_node();
 void		add_back_hs_node(t_hist **head, t_hist *added);
 void		node_prev(t_hist **now);
 void		node_next(t_hist **now);
-void		init_hists();
-void		init_thists();
 //free things
 void		free_t_hist(t_hist **freed_hist); //free normal t_hist
 void		free_copy_thist();
@@ -248,5 +245,14 @@ void	clear_all_command_line();
 int		add_cmd_txt(t_split_one **s_cmd, char *str_cmd);
 void	init_cmd(t_split_one **last_cmd, t_split_one **first_cmd);
 void	init_two(t_split_two **last_two, t_split_two **first_two);
+void	key_execute(int c);
+void	up_arrow_execute(void);
+void	down_arrow_execute(void);
+void	next_line_execute(void);
+void	print_new_line_and_prompt(void);
+void	re_init_thist(void);
+void	null_init_hist_and_thist(void);
+void	sighandler(int sig_num);
+void	add_new_hist();
 
 #endif

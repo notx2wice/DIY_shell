@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:40:56 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/18 11:40:55 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 15:45:24 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,45 +47,30 @@ int		putchar_tc(int tc)
 	return (0);
 }
 
-int	nbr_length(int n)
-{
-	int	i = 0;
-
-	if (n <= 0)
-		i++;
-	while (n != 0)
-	{
-		n /= 10;
-		i++;
-	}
-	return (i);
-}
-
 void	get_cursor_position(int *col, int *rows)
 {
-	int		a = 0;
-	int		i = 1;
 	char	buf[50];
-	int		ret;
-	int		temp;
+	int		arr[3];
 
-	write(1, "\033[6n", 5);//report cursor location
-	ret = read(1, buf, 49);
-	buf[ret] = '\0';
-	while (buf[i])
-	{
-		if (buf[i] >= '0' && buf[i] <= '9')
+	write(1, "\033[6n", 5);
+	arr[0] = read(1, buf, 49);
+	buf[arr[0]] = '\0';
+	arr[1] = 0;
+	arr[2] = 0;
+	while (buf[arr[2]++])
+		if (buf[arr[2]] >= '0' && buf[arr[2]] <= '9')
 		{
-			if (a == 0)
-				*rows = ft_atoi(&buf[i]) - 1;
-			else
+			if (arr[1] == 0)
 			{
-				temp = ft_atoi(&buf[i]);
-				*col = temp - 1;
+				*rows = ft_atoi(&buf[arr[2]]) - 1;
+				arr[1] = 1;
 			}
-			a++;
-			i += nbr_length(temp) - 1;
+			else if (arr[1] == 2)
+			{
+				*col = ft_atoi(&buf[arr[2]]) - 1;
+				return ;
+			}
 		}
-		i++;
-	}
+		else if (buf[arr[2]] == ';')
+			arr[1] = 2;
 }
