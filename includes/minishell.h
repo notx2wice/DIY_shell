@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/20 10:40:19 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 15:48:43 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,6 @@ extern t_all			g_all;
 
 void		print_prompt(void);
 int			putchar_tc(int tc);
-int			nbr_length(int n);
 void		cursor_win(void);
 void		get_cursor_position(int *col, int *rows);
 void		delete_end();

@@ -6,7 +6,7 @@
 /*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:40:56 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 15:01:30 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/12 15:45:24 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,59 +47,30 @@ int		putchar_tc(int tc)
 	return (0);
 }
 
-int	nbr_length(int n)
-{
-	int	i = 0;
-
-	if (n <= 0)
-		i++;
-	while (n != 0)
-	{
-		n /= 10;
-		i++;
-	}
-	return (i);
-}
-
 void	get_cursor_position(int *col, int *rows)
 {
-	int		flag;
-	int		flag2;
-	int		i;
 	char	buf[50];
-	int		ret;
-	int		temp;
+	int		arr[3];
 
 	write(1, "\033[6n", 5);
-	ret = read(1, buf, 49);
-	buf[ret] = '\0';
-	flag = 0;
-	flag2 = 0;
-
-	i = 1;
-	while (buf[i])
-	{
-		if (buf[i] >= '0' && buf[i] <= '9')
+	arr[0] = read(1, buf, 49);
+	buf[arr[0]] = '\0';
+	arr[1] = 0;
+	arr[2] = 0;
+	while (buf[arr[2]++])
+		if (buf[arr[2]] >= '0' && buf[arr[2]] <= '9')
 		{
-			if (flag == 0 && flag2 == 0)
+			if (arr[1] == 0)
 			{
-				*rows = ft_atoi(&buf[i]) - 1;
-				flag = 1;
+				*rows = ft_atoi(&buf[arr[2]]) - 1;
+				arr[1] = 1;
 			}
-			else if (flag == 1 && flag2 == 1)
+			else if (arr[1] == 2)
 			{
-				temp = ft_atoi(&buf[i]);
-				if (temp != 0)
-					*col = temp - 1;
-				else if (temp == 0)
-					*col = 0;
-				break;
+				*col = ft_atoi(&buf[arr[2]]) - 1;
+				return ;
 			}
 		}
-		else if (buf[i] == ';')
-		{
-			flag2 = 1;
-		}
-		i++;
-	}
+		else if (buf[arr[2]] == ';')
+			arr[1] = 2;
 }
