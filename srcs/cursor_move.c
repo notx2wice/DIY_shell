@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:44:21 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/19 16:26:41 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 14:17:50 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	delete_end()
 {
 	if(g_all.hist_now->data.top > 0)
 	{
-		if (g_all.tc.curcol <= 0 || g_all.tc.currow <= 0)
+		if (g_all.tc.curcol < 0 || g_all.tc.currow < 0)
 			return ;
 		if (g_all.tc.curcol == 0)
 		{
@@ -38,35 +38,54 @@ void	delete_end()
 
 void	just_delete_end()
 {
-	if (g_all.tc.curcol == 0 && g_all.tc.currow > 0)
+	if (g_all.tc.currow < 0)
 	{
-		g_all.tc.currow--;
+		printf("\nerror : currow가 음수입니다.\n");
+		return ;
+	}
+	if (g_all.tc.curcol < 0)
+	{
+		printf("\nerror : curcol 음수입니다.\n");
+		return ;
+	}
+	if (g_all.tc.curcol == 0)
+	{
+		if (g_all.tc.currow != 0)
+		{
+			g_all.tc.currow = g_all.tc.currow - 1;
+		}
+		else
+		{
+			printf("\ncurcol가 0이에요\n");
+		}
 		g_all.tc.curcol = g_all.tc.col - 1;
-		tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
-		tputs(g_all.tc.ce, 1, putchar_tc);
+		// tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
+		// tputs(g_all.tc.ce, 1, putchar_tc);
 	}
 	else if (g_all.tc.curcol > 0)
 	{
-		get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
+		// get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
 		g_all.tc.curcol = g_all.tc.curcol - 1;
-		tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
-		tputs(g_all.tc.ce, 1, putchar_tc);
+		// tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), 1, putchar_tc);
+		// tputs(g_all.tc.ce, 1, putchar_tc);
 	}
-	// else
-	// {
-	// 	printf("\n안지워졌어용\n");
-	// }
+}
 
+void move_curser(int mv_cnt)
+{
+	tputs(tgoto(g_all.tc.cm, g_all.tc.curcol, g_all.tc.currow), mv_cnt, putchar_tc);
+	tputs(g_all.tc.ce, mv_cnt, putchar_tc);
+	// printf("\n%d %d\n", g_all.tc.curcol, g_all.tc.currow);
 }
 
 void	clear_all_command_line()
 {
 	int i;
-
 	i = -1;
 	while (++i < g_all.hist_now->data.top)
 	{
 		just_delete_end();
 	}
-	// printf(" top : %d\n", g_all.hist_now->data.top);
+	if (i != 0)
+		move_curser(i);
 }

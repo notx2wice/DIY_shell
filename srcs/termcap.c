@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:40:56 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/18 11:40:55 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 15:01:30 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	nbr_length(int n)
 
 void	get_cursor_position(int *col, int *rows)
 {
-	int		a;
+	int		flag;
+	int		flag2;
 	int		i;
 	char	buf[50];
 	int		ret;
@@ -72,22 +73,32 @@ void	get_cursor_position(int *col, int *rows)
 	write(1, "\033[6n", 5);
 	ret = read(1, buf, 49);
 	buf[ret] = '\0';
-	a = 0;
+	flag = 0;
+	flag2 = 0;
+
 	i = 1;
 	while (buf[i])
 	{
 		if (buf[i] >= '0' && buf[i] <= '9')
 		{
-			if (a == 0)
+			if (flag == 0 && flag2 == 0)
+			{
 				*rows = ft_atoi(&buf[i]) - 1;
-			else
+				flag = 1;
+			}
+			else if (flag == 1 && flag2 == 1)
 			{
 				temp = ft_atoi(&buf[i]);
 				if (temp != 0)
 					*col = temp - 1;
+				else if (temp == 0)
+					*col = 0;
+				break;
 			}
-			a++;
-			i += nbr_length(temp) - 1;
+		}
+		else if (buf[i] == ';')
+		{
+			flag2 = 1;
 		}
 		i++;
 	}
