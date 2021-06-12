@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 11:16:10 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/20 10:41:12 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 16:26:00 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		copy_hist(t_hist **ori, t_hist **cpy) // copy_process
+void		copy_hist(t_hist **ori, t_hist **cpy)
 {
 	int		idx;
 
@@ -25,7 +25,7 @@ void		copy_hist(t_hist **ori, t_hist **cpy) // copy_process
 	(*cpy)->data.top = (*ori)->data.top;
 }
 
-void		copy_all_hist() //hist_copy
+void		copy_all_hist(void)
 {
 	t_hist	*hi;
 	t_hist	*thi;
@@ -63,14 +63,14 @@ void		free_t_hist(t_hist **freed_hist)
 	(*freed_hist) = NULL;
 }
 
-void		free_copy_thist()
+void		free_copy_thist(void)
 {
 	if (g_all.thist_start != NULL)
 		free_t_hist(&g_all.thist_start);
 	copy_all_hist();
 }
 
-void		link_thist_last_now()
+void		link_thist_last_now(void)
 {
 	t_hist	*temp;
 

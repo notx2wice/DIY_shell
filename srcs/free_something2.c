@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_env.c                                         :+:      :+:    :+:   */
+/*   free_something2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 10:52:08 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:45:53 by ukim             ###   ########.fr       */
+/*   Created: 2021/04/12 20:38:59 by ukim              #+#    #+#             */
+/*   Updated: 2021/06/12 16:45:46 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-int		exec_env(void)
+void			free_two(t_split_two **two)
 {
-	t_env	*env;
+	t_split_two	*t_two;
+	t_split_two	*free_temp;
 
-	env = g_all.env_first;
-	while (env)
+	if (*two == NULL)
+		return ;
+	t_two = *two;
+	while (t_two)
 	{
-		if (env->value)
-		{
-			ft_putstr_fd(env->key, 1);
-			write(1, "=", 1);
-			ft_putstr_fd(env->value, 1);
-			write(1, "\n", 1);
-		}
-		env = env->next;
+		if (t_two->redir_first != NULL)
+			free_redir(&t_two->redir_first);
+		if (t_two->cmd_first != NULL)
+			free_cmd(&t_two->cmd_first);
+		free_temp = t_two;
+		t_two = t_two->next;
+		free(free_temp);
 	}
-	return (0);
+	*two = NULL;
 }

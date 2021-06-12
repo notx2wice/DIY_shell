@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:16 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 18:36:48 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 16:44:56 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		exec_pwd()
+int		exec_pwd(void)
 {
 	char cwd[BUFFS];
 

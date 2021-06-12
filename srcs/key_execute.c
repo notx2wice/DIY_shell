@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 14:00:07 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/12 16:28:41 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			up_arrow_execute(void)
 	{
 		clear_all_command_line();
 		g_all.hist_now = g_all.hist_now->prev;
-		g_all.thist_now = g_all.thist_now->prev;	
+		g_all.thist_now = g_all.thist_now->prev;
 		hist_now_data_top = &(g_all.hist_now->data.top);
 		write(1, g_all.hist_now->data.tcarr, *hist_now_data_top);
 	}
@@ -56,9 +56,7 @@ int				empty_hist_now(void)
 void			next_line_execute(void)
 {
 	t_split_two		*now_cmd;
-	int				*hist_now_data_top;
 
-	hist_now_data_top = &(g_all.hist_now->data.top);
 	if (g_all.hist_now != g_all.hist_last)
 	{
 		add_new_hist();
@@ -73,16 +71,19 @@ void			next_line_execute(void)
 	g_all.hist_now->data.tcarr[g_all.hist_now->data.top] = '\0';
 	now_cmd = parsing(g_all.hist_now->data.tcarr);
 	write(1, "\n", 1);
+	g_all.tc.term.c_lflag |= ICANON;
+	tcsetattr(0, TCSANOW, &g_all.tc.term);
 	if (now_cmd != NULL)
 		exec_command(now_cmd);
 	print_prompt();
+	g_all.tc.term.c_lflag &= ~ICANON;
+	tcsetattr(0, TCSANOW, &g_all.tc.term);
 	re_init_thist();
 }
 
 void			key_execute(int c)
 {
 	int				*hist_now_data_top;
-	char			word;
 
 	hist_now_data_top = &(g_all.hist_now->data.top);
 	if (c == EOF_KEY)
@@ -102,11 +103,9 @@ void			key_execute(int c)
 		next_line_execute();
 	else if (c < 256)
 	{
-		word = c;
-		write(1, &word, 1);
-		g_all.hist_now->data.tcarr[*hist_now_data_top] = word;
+		write(1, &c, 1);
+		g_all.hist_now->data.tcarr[*hist_now_data_top] = c;
 		g_all.hist_now->data.top++;
 		g_all.tc.curcol++;
 	}
-	tcflush(0, TCIFLUSH);
 }

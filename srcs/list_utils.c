@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:22:49 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/17 22:19:07 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 16:36:12 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void					init_redir_list(t_redir **r_list)
 void					init_cmd_list(t_cmd_list **r_list)
 {
 	(*r_list)->disable = 0;
-	(*r_list)->str  = NULL;
+	(*r_list)->str = NULL;
 	(*r_list)->next = NULL;
 }
 

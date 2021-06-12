@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 11:08:38 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 14:25:31 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 16:49:50 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h" // history 후에 생성 해줄것
+#include "../includes/minishell.h"
 
 int		no_command_error(t_split_two *cmd, int err_num)
 {

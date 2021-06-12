@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_env.c                                         :+:      :+:    :+:   */
+/*   do_cmd2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 10:52:08 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:45:53 by ukim             ###   ########.fr       */
+/*   Created: 2021/04/30 10:52:53 by ukim              #+#    #+#             */
+/*   Updated: 2021/06/12 16:48:58 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		exec_env(void)
+void	exec_default(t_split_two *cmd)
 {
-	t_env	*env;
+	if (is_empty_cmd(cmd))
+		g_all.exit_code = empty_cmd_handler(cmd);
+	else if (is_built_in(cmd->cmd[0]) == TRUE)
+		g_all.exit_code = exec_builtin(cmd);
+	else
+		not_builtin_fork(cmd);
+}
 
-	env = g_all.env_first;
-	while (env)
+void	exec_command(t_split_two *now_cmd)
+{
+	t_split_two	*cmd;
+
+	cmd = now_cmd;
+	while (cmd)
 	{
-		if (env->value)
+		if (cmd->pipe_flag == 1)
 		{
-			ft_putstr_fd(env->key, 1);
-			write(1, "=", 1);
-			ft_putstr_fd(env->value, 1);
-			write(1, "\n", 1);
+			cmd = exec_pipe(cmd);
+			continue;
 		}
-		env = env->next;
+		exec_default(cmd);
+		cmd = cmd->next;
 	}
-	return (0);
 }

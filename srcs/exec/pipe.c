@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 09:46:00 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/18 19:13:18 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 16:35:19 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,33 +68,4 @@ void	exec_default_pipe(t_split_two *cmd)
 		exit(exec_builtin(cmd));
 	else
 		exec_not_builtin(cmd);
-}
-
-t_split_two	*exec_pipe(t_split_two *cmd)
-{
-	int		fds[count_pipes(cmd) * 2];
-	int		cnt_pip;
-	int		i;
-	pid_t	pid[count_pipes(cmd) + 1];
-
-	cnt_pip = count_pipes(cmd);
-	i = -1;
-	while (++i < cnt_pip)
-		if (pipe(fds + (i * 2)) == -1)
-			ft_error();
-	i = -1;
-	while (cmd && ++i < cnt_pip + 1)
-	{
-		if ((pid[i] = fork()) == -1)
-			ft_error();
-		g_all.child = 1;
-		if (pid[i] == 0) // pid == 0 is child process
-		{
-			dup_fds(fds, i, cnt_pip);
-			exec_default_pipe(cmd);
-		}
-		cmd = cmd->next;
-	}
-	wait_parent(fds, pid, cnt_pip);
-	return (cmd);
 }

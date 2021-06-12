@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 11:14:15 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/18 14:17:16 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 16:48:29 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		no_home_error(t_split_two *cmd, int err_num)
 	return (err_num);
 }
 
-void		syntax_error(void)
+void	syntax_error(void)
 {
 	ft_putstr_fd("\nmini>: syntax error with unexpected token", 1);
 	g_all.exit_code = 258;

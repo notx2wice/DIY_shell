@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 20:38:59 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/26 14:20:51 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 16:37:43 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ void			free_redir(t_redir **redir)
 	t_redir		*temp_redir;
 	t_redir		*free_temp;
 
-	if(*redir == NULL)
+	if (*redir == NULL)
 		return ;
-	
 	temp_redir = *redir;
 	while (temp_redir)
 	{
@@ -109,25 +108,4 @@ void			free_cmd(t_cmd_list **cmd)
 		free(free_temp);
 	}
 	*cmd = NULL;
-}
-
-void			free_two(t_split_two **two)
-{
-	t_split_two	*t_two;
-	t_split_two	*free_temp;
-
-	if (*two == NULL)
-		return ;
-	t_two = *two;
-	while (t_two)
-	{
-		if (t_two->redir_first != NULL)
-			free_redir(&t_two->redir_first);
-		if (t_two->cmd_first != NULL)
-			free_cmd(&t_two->cmd_first);
-		free_temp = t_two;
-		t_two = t_two->next;
-		free(free_temp);
-	}
-	*two = NULL;
 }

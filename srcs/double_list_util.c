@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:43:19 by ukim              #+#    #+#             */
-/*   Updated: 2021/04/14 11:39:18 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 16:49:37 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void		init_hs_node(t_hist **node)
 	(*node)->prev = NULL;
 }
 
-t_hist		*make_hs_node()
+t_hist		*make_hs_node(void)
 {
 	t_hist	*temp;
 
 	temp = (t_hist*)malloc(sizeof(t_hist));
 	init_hs_node(&temp);
-	return temp;
+	return (temp);
 }
 
 void		add_back_hs_node(t_hist **head, t_hist *added)
@@ -63,40 +63,3 @@ void		node_next(t_hist **now)
 	}
 	(*now) = (*now)->next;
 }
-// int main()
-// {
-// 	t_hist *first = NULL;
-// 	t_hist *temp;
-
-// 	temp = make_hs_node();
-// 	temp->data.tcarr = "hi";
-
-// 	add_back_hs_node(&first, temp);
-
-// 	temp = make_hs_node();
-// 	temp->data.tcarr = "hi1";
-
-// 	add_back_hs_node(&first, temp);
-
-// 	temp = make_hs_node();
-// 	temp->data.tcarr = "hi2";
-
-// 	add_back_hs_node(&first, temp);
-
-// 	temp = first;
-// 	printf("%s\n", temp->data.tcarr);
-// 	node_next(&temp);
-// 	printf("%s\n", temp->data.tcarr);
-// 	node_next(&temp);
-// 	printf("%s\n", temp->data.tcarr);
-// 	node_next(&temp);
-// 	printf("%s\n", temp->data.tcarr);
-// 	node_prev(&temp);
-// 	printf("%s\n", temp->data.tcarr);
-// 	node_prev(&temp);
-// 	printf("%s\n", temp->data.tcarr);
-// 	node_prev(&temp);
-// 	printf("%s\n", temp->data.tcarr);
-// 	node_prev(&temp);
-// 	printf("%s\n", temp->data.tcarr);
-// }

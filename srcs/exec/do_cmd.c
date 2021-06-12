@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 10:52:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/18 20:19:17 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 16:45:08 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	not_builtin_fork(t_split_two *cmd)
 	}
 }
 
-int	is_empty_cmd(t_split_two *cmd)
+int		is_empty_cmd(t_split_two *cmd)
 {
 	if (cmd->cmd[0] == NULL)
 		return (TRUE);
@@ -90,32 +90,5 @@ int		empty_cmd_handler(t_split_two *cmd)
 	{
 		syntax_error();
 		return (258);
-	}
-}
-
-void	exec_default(t_split_two *cmd)
-{
-	if (is_empty_cmd(cmd))
-		g_all.exit_code = empty_cmd_handler(cmd);
-	else if (is_built_in(cmd->cmd[0]) == TRUE)
-		g_all.exit_code = exec_builtin(cmd);
-	else
-		not_builtin_fork(cmd);
-}
-
-void	exec_command(t_split_two *now_cmd)
-{
-	t_split_two	*cmd;
-
-	cmd = now_cmd;
-	while (cmd)
-	{
-		if (cmd->pipe_flag == 1)
-		{
-			cmd = exec_pipe(cmd);
-			continue;
-		}
-		exec_default(cmd);
-		cmd = cmd->next;
 	}
 }
