@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:31:44 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 17:39:51 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		main(int ac, char **av, char *env[])
 {
 	int		c;
 
+	(void)ac;
+	(void)av;
 	init_all(env);
 	c = 0;
 	while (read(0, &c, sizeof(int)))

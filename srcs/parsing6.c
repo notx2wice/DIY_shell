@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:58:38 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 16:44:03 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 17:20:10 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int				case_d_out_redir(t_cmd_list **tmp_cmd, t_split_two **lt)
 
 int				when_two_have_redir(t_split_two **lt)
 {
-	t_redir		*tr;
 	t_cmd_list	*tmp_cmd;
 
 	tmp_cmd = (*lt)->cmd_first;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 20:20:00 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/23 01:34:19 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 17:16:33 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		meet_q(t_split_one **fc, t_split_one **lc, int *idx, char *cmd)
 	return (1);
 }
 
-int		meet_redir(t_split_one **fc, t_split_one **lc, int *idx, char *cmd)
+int		meet_redir(t_split_one **lc, int *idx, char *cmd)
 {
 	if (cmd[(*idx) + 1] != 0)
 	{
@@ -102,7 +102,7 @@ int		divide_with_ptqd(t_split_one **fc, t_split_one **lc, char *cmd)
 		}
 		else if (cmd[idx] == '<' || cmd[idx] == '>')
 		{
-			if ((meet_redir(fc, lc, &idx, cmd) == 0))
+			if ((meet_redir(lc, &idx, cmd) == 0))
 				return (0);
 		}
 		else

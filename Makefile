@@ -19,7 +19,7 @@ LIBS = -L $(LIBDIR) -lft
 
 HEADER = -I includes -I $(LIBDIR)
 CC = gcc
-CFLAG = -lncurses -fsanitize=address #-Wall -Wextra -Werror
+CFLAG = -fsanitize=address -Wall -Wextra -Werror 
 
 OBJ = $(SRCS:.c=.o)
 
@@ -30,7 +30,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 		@make -C $(LIBDIR)
-		@$(CC) $(CFLAG) $(OBJ) $(HEADER) $(LIBS) -o $@
+		@$(CC) -lncurses $(CFLAG) $(OBJ) $(HEADER) $(LIBS) -o $@
 
 clean:
 		@/bin/rm -rf $(OBJ)

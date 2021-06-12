@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 20:54:26 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 18:07:10 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 17:17:27 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		for_norm_shit(char *cnv, t_split_one **lc, int *idx)
 	cnv[idx[1]++] = (*lc)->str[idx[0]++];
 }
 
-void		it_is_in_dq(t_split_one **fc, t_split_one **lc)
+void		it_is_in_dq(t_split_one **lc)
 {
 	int		idx[2];
 	int		start[2];
@@ -99,7 +99,7 @@ void		change_dollar_in_dq(t_split_one **fc, t_split_one **lc)
 	{
 		if ((*lc)->d_quote_flag)
 		{
-			it_is_in_dq(fc, lc);
+			it_is_in_dq(lc);
 		}
 		(*lc) = (*lc)->next;
 	}

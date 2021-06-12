@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 10:59:59 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 18:08:26 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 17:18:07 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void		change_dollar_roop(t_split_one **lc, int *idx, char *cnv, int *st)
 	}
 }
 
-void		it_is_in_split(t_split_one **fc, t_split_one **lc)
+void		it_is_in_split(t_split_one **lc)
 {
 	int		idx[3];
 	int		st[2];
@@ -118,7 +118,7 @@ void		change_dollar_in_cmd(t_split_one **fc, t_split_one **lc)
 		}
 		if ((*lc)->split_str != NULL)
 		{
-			it_is_in_split(fc, lc);
+			it_is_in_split(lc);
 		}
 		(*lc) = (*lc)->next;
 	}

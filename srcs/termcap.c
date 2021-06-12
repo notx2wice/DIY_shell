@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:40:56 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 15:45:24 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/12 17:40:11 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_term(void)
 {
-	char	*name;
 	char	*env;
 
 	env = getenv("TERM");

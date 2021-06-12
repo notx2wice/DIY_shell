@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 13:44:22 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 15:30:15 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 17:19:27 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			case_normal(t_split_one **lc, t_split_two **lt)
 }
 
 void			divide_with_tp(t_split_two **ft, t_split_two **lt, \
-								t_split_one **fc, t_split_one **lc)
+								t_split_one **lc)
 {
 	if ((*lc)->quote_flag || (*lc)->d_quote_flag)
 		case_q_dq(lt, lc);
@@ -80,7 +80,7 @@ void			make_two_by_one(t_split_one **fc, t_split_one **lc, \
 			(*lc) = (*lc)->next;
 			continue ;
 		}
-		divide_with_tp(ft, lt, fc, lc);
+		divide_with_tp(ft, lt, lc);
 		(*lc) = (*lc)->next;
 	}
 }

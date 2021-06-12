@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:56:17 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 17:06:43 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,5 +245,7 @@ void					re_init_thist(void);
 void					null_init_hist_and_thist(void);
 void					sighandler(int sig_num);
 void					add_new_hist();
+void					not_builtin_fork(t_split_two *cmd);
+int						count_pipes(t_split_two *cmd);
 
 #endif
