@@ -6,13 +6,13 @@
 /*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 14:18:26 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/12 15:54:38 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_all	g_all;
+t_all g_all;
 
 void	sighandler(int sig_num)
 {
@@ -30,7 +30,7 @@ void	sighandler(int sig_num)
 			g_all.hist_last->data.top = 0;
 			write(1, "\nmini> ", 7);
 		}
-		return ;
+		return;
 	}
 	if (sig_num == SIGQUIT)
 	{
@@ -39,7 +39,7 @@ void	sighandler(int sig_num)
 			g_all.exit_code = 131;
 			write(1, "Quit: 3\n", 8);
 		}
-		return ;
+		return;
 	}
 }
 
