@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 22:45:49 by ukim              #+#    #+#             */
-/*   Updated: 2020/10/22 16:27:26 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 13:08:04 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,3 @@ char			*ft_itoa(int n)
 		str[0] = '-';
 	return (str);
 }
-/*
-** int main(int ac , char **av)
-** {
-**  	if(ac == 2)
-**  	{
-**  		char *ans = ft_itoa(ft_atoi(av[1]));
-**  		printf("%s\n",ans);
-**  	}
-** }
-** cc ft_itoa.c ft_atoi.c ft_strdup.c ft_strlen.c  libft.h
-*/

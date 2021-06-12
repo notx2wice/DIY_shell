@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/20 12:59:06 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/12 15:15:48 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_all	g_all;
+t_all g_all;
 
-void				sighandler(int sig_num)
+void sighandler(int sig_num)
 {
 	if (sig_num == SIGINT) // cntl + c
-	{	//이때 문자열 입력을 받는 버퍼를 날리고 새로 할당 한후 커런트로 이어 줘야함.
+	{					   //이때 문자열 입력을 받는 버퍼를 날리고 새로 할당 한후 커런트로 이어 줘야함.
 		if (g_all.child == 1)
 		{
 			g_all.exit_code = 130;
@@ -30,7 +30,7 @@ void				sighandler(int sig_num)
 			g_all.hist_last->data.top = 0;
 			write(1, "\nmini> ", 7);
 		}
-		return ;
+		return;
 	}
 	if (sig_num == SIGQUIT) // cntl + back slash
 	{
@@ -39,13 +39,13 @@ void				sighandler(int sig_num)
 			g_all.exit_code = 131;
 			write(1, "Quit: 3\n", 8);
 		}
-		return ;
+		return;
 	}
 }
 
-int					is_same_hist()
+int is_same_hist()
 {
-	int				idx;
+	int idx;
 
 	idx = 0;
 	if (g_all.thist_now->data.top != g_all.hist_now->data.top)
@@ -59,9 +59,9 @@ int					is_same_hist()
 	return (1);
 }
 
-void				add_new_hist()
+void add_new_hist()
 {
-	t_hist			*temp;
+	t_hist *temp;
 
 	temp = make_hs_node();
 	copy_hist(&g_all.hist_now, &temp);
@@ -71,19 +71,18 @@ void				add_new_hist()
 	free_t_hist(&g_all.hist_last);
 	g_all.hist_last = temp;
 	g_all.hist_now = g_all.hist_last;
-
 }
 
-int					main(int ac, char **av, char *env[])
+int main(int ac, char **av, char *env[])
 {
-	int				c;
+	int c;
 	(void)ac;
 	(void)av;
 	(void)env;
 
-	t_hist			*temp;
-	t_hist			*ttemp;
-	t_split_two		*now_cmd;
+	t_hist *temp;
+	t_hist *ttemp;
+	t_split_two *now_cmd;
 	g_all.hist_last = NULL;
 	get_env(env, &g_all.env_first);
 	signal(SIGQUIT, sighandler);
@@ -93,11 +92,14 @@ int					main(int ac, char **av, char *env[])
 	// free_t_hist(&g_all.thist_start);
 	copy_all_hist();
 	link_thist_last_now();
+	c = 0;
 	while (read(0, &c, sizeof(int)))
 	{
 		get_cursor_position(&g_all.tc.curcol, &g_all.tc.currow);
 		if (c == EOF_KEY) // cntl + d
 		{
+			if (g_all.child == 1)
+				write(1, "exit\n", 5);
 			if (g_all.hist_now->data.top != 0)
 				continue;
 			write(1, "exit\n", 5);
@@ -123,41 +125,44 @@ int					main(int ac, char **av, char *env[])
 				write(1, g_all.hist_now->data.tcarr, g_all.hist_now->data.top);
 			}
 		}
-		else if (c == BACKSPACE) // 지우기 누를때
+		else if (c == BACKSPACE)													  // 지우기 누를때
 			delete_end(&g_all.tc.curcol, &g_all.tc.currow, g_all.tc.cm, g_all.tc.ce); // 지워지세요
-		else if (c == NEXT_LINE) // \n 엔터 들어왔을때
+		else if (c == NEXT_LINE)													  // \n 엔터 들어왔을때
 		{
-			if (g_all.hist_now != g_all.hist_last)//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
-				add_new_hist(); // 같으면 thist는 내비둠.
-			else
-				if (g_all.hist_now->data.top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
-				{
-					write(1, "\n", 1);
-					write(1, "mini> ", PROMPT_SIZE);
-					continue ;
-				}// 마지막 히스토리와 현재가 같은데 data가 0이다? 마지막 히스토리와 hist now가 둘다 null이였을경우? null인데 어떻게 data.top으로 접근하징?
+			if (g_all.hist_now != g_all.hist_last)	//마지막 히스토리 면 저장 하고 새로 만들고 아니면 원래 마지막꺼랑 치환
+				add_new_hist();						// 같으면 thist는 내비둠.
+			else if (g_all.hist_now->data.top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
+			{
+				write(1, "\n", 1);
+				write(1, "mini> ", PROMPT_SIZE);
+				continue;
+			}								   // 마지막 히스토리와 현재가 같은데 data가 0이다? 마지막 히스토리와 hist now가 둘다 null이였을경우? null인데 어떻게 data.top으로 접근하징?
 			if (g_all.hist_now->data.top == 0) //명령줄에 아무것도 입력하지 않은 상태였다면 출력하기
 			{
 				free_t_hist(&g_all.thist_start); //thist 올 삭제 -> thist와 hist가 다를수도 있는건가?
-				copy_all_hist(); // hist에 있는걸 thist로 복사
-				link_thist_last_now(); // thist의 now와 last를 init 해줌
+				copy_all_hist();				 // hist에 있는걸 thist로 복사
+				link_thist_last_now();			 // thist의 now와 last를 init 해줌
 				write(1, "\n", 1);
 				write(1, "mini> ", PROMPT_SIZE);
 				g_all.hist_now = g_all.hist_last;
-				continue ;
+				continue;
 			}
 			g_all.hist_now->data.tcarr[g_all.hist_now->data.top] = '\0';
 			now_cmd = parsing(g_all.hist_now->data.tcarr); //현재명령 tcarr이 도대체 머임
 			g_all.hist_now = g_all.hist_last;
 			write(1, "\n", 1);
+			g_all.tc.term.c_lflag |= ICANON;
+			tcsetattr(0, TCSANOW, &g_all.tc.term);
 			if (now_cmd != NULL)
 				exec_command(now_cmd);
 			print_prompt();
+			g_all.tc.term.c_lflag &= ~ICANON;
+			tcsetattr(0, TCSANOW, &g_all.tc.term);
 			free_t_hist(&g_all.thist_start);
 			copy_all_hist();
 			link_thist_last_now();
 		}
-		else // maybe c should have short range for printable char
+		else if (c > 31 && c < 256) // maybe c should have short range for printable char
 		{
 			write(1, &c, 1);
 			g_all.hist_now->data.tcarr[g_all.hist_now->data.top++] = (char)c;

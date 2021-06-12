@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/20 10:40:19 by ukim             ###   ########.fr       */
+/*   Updated: 2021/05/21 18:15:01 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define UP_ARROW 4283163
 # define DOWN_ARROW 4348699
 # define NEXT_LINE 10
-# define BUFFS 4000 //버퍼가 4000이여도 괜차는건가? 1024는어떤감.. 버퍼가 1024면 효율이 조타더넫..
+# define BUFFS 4000
 # define PROMPT_SIZE 6
 # define EXIT_SUCCESS 0
 
@@ -190,6 +190,21 @@ void		get_env(char *env[], t_env **env_first);
 //parse
 t_split_two	*parsing(char *str_ori);
 char		*get_env_value_by_key(char *key);
+int			divide_with_ptqd(t_split_one **first_cmd, t_split_one **last_cmd, char *cmd);
+void		change_dollar_in_dq(t_split_one **first_cmd, t_split_one **last_cmd);
+void		find_value_insert(char *cnv, char *t_e_key, int *idx);
+void		make_start_end(int *idx, int *start, int *end, t_split_one **lc);
+void		change_dollar_in_cmd(t_split_one **fc, t_split_one **lc);
+void		make_two_by_one(t_split_one **fc, t_split_one **lc, t_split_two **ft, t_split_two **lt);
+int			make_redir_total(t_split_two **ft, t_split_two **lt);
+void		make_list_2d_arr(t_split_two **ft, t_split_two **lt);
+int			count_cmd(t_cmd_list *cmd);
+void		make_in_out_r_lst(t_split_two **ft, t_split_two **lt, t_split_one **ff);
+void		chng_dllr_end_process(t_split_one **lc, char *cnv, int *idx);
+void		chng_dllr_start_process(char **cnv, int *idx);
+void		make_st_end2(int *st, int *idx, t_split_one **lc);
+void		chng_dllr_start_process2(char **cnv, int *idx);
+void		chng_dllr_end_process2(t_split_one **lc, char *cnv, int *idx);
 
 //exec
 int			get_cmd_list_length(t_split_two *cmd);
@@ -226,7 +241,7 @@ void	syntax_error(void);
 int		is_empty_cmd(t_split_two *cmd);
 int		empty_cmd_handler(t_split_two *cmd);
 
-//추가한 함수
+//추가한  
 int		get_char_index(char *arr, char c);
 void	init_env(t_env **s_env);
 void	clear_all_command_line();
