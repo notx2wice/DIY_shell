@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 10:52:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:45:08 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/13 18:14:50 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	not_builtin_fork(t_split_two *cmd)
 	pid_t	pid;
 	int		status;
 
+	if (change_redir(cmd) == -1)
+		return ;
 	g_all.child = 1;
 	if ((pid = fork()) == -1)
 		ft_error();
