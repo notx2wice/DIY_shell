@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:27:34 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:44:43 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/13 19:22:14 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int		do_redir_in(t_redir *in)
 	while (tmp->next)
 	{
 		if ((fd = open(tmp->str, O_RDONLY)) == -1)
+		{
 			return (open_error(tmp->str));
+		}
 		if (close(fd) == -1)
 			ft_error();
 		tmp = tmp->next;
