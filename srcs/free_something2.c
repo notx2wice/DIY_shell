@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 20:38:59 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:45:46 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/13 16:10:38 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void			free_two(t_split_two **two)
 			free_redir(&t_two->redir_first);
 		if (t_two->cmd_first != NULL)
 			free_cmd(&t_two->cmd_first);
+		if (t_two->redir_in != NULL)
+			free_redir(&t_two->redir_in);
+		if (t_two->redir_out != NULL)
+			free_redir(&t_two->redir_out);
+		if (t_two->cmd != NULL)
+			free_2d_arr(&t_two->cmd);
 		free_temp = t_two;
 		t_two = t_two->next;
 		free(free_temp);

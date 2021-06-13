@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:28:41 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/13 15:38:13 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			next_line_execute(void)
 	tcsetattr(0, TCSANOW, &g_all.tc.term);
 	if (now_cmd != NULL)
 		exec_command(now_cmd);
+	free_two(&now_cmd);
 	print_prompt();
 	g_all.tc.term.c_lflag &= ~ICANON;
 	tcsetattr(0, TCSANOW, &g_all.tc.term);

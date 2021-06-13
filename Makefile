@@ -19,7 +19,7 @@ LIBS = -L $(LIBDIR) -lft
 
 HEADER = -I includes -I $(LIBDIR)
 CC = gcc
-CFLAG = -fsanitize=address -Wall -Wextra -Werror 
+CFLAG = -Wall -Wextra -Werror #-fsanitize=address 
 
 OBJ = $(SRCS:.c=.o)
 
