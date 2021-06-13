@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 14:11:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:43:26 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/13 16:48:32 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	exec_not_builtin(t_split_two *cmd)
 	if (cmd->ispath == 0)
 	{
 		if (!(path = get_path_env()))
-			exit(no_file_error(cmd, 127));
+			exit(no_file_error(cmd, 126));
 		exec_not_builtin_sub(cmd, path);
 		free_2d_arr(&path);
 		exit(no_command_error(cmd, 127));
@@ -105,6 +105,6 @@ void	exec_not_builtin(t_split_two *cmd)
 	else
 	{
 		execve(cmd->cmd[0], cmd->cmd, make_env_char());
-		exit(no_file_error(cmd, 127));
+		exit(no_file_error(cmd, 126));
 	}
 }

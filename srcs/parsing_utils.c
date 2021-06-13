@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:04:50 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/21 18:10:01 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/13 16:50:42 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void			make_start_end(int *idx, int *start, int *end, t_split_one **lc)
 {
 	(*start) = (*idx);
 	while ((*lc)->str[(*idx)] != '\0' && (*lc)->str[(*idx)] != ' ' &&\
-			(*lc)->str[(*idx)] != '$')
+			(*lc)->str[(*idx)] != '$' && (*lc)->str[(*idx)] != '\'')
 		(*idx)++;
 	(*end) = (*idx);
 }
