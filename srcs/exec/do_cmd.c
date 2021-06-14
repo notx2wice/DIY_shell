@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 10:52:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/13 20:00:23 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/14 15:54:17 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,5 @@ int		empty_cmd_handler(t_split_two *cmd)
 		getback_redir(cmd);
 		return (0);
 	}
-	else
-	{
-		syntax_error();
-		return (258);
-	}
+	return (258);
 }
