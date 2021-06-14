@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/13 15:38:13 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/14 15:10:15 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void			key_execute(int c)
 	else if (c == DOWN_ARROW)
 		down_arrow_execute();
 	else if (c == BACKSPACE)
-		delete_end();
+		backspace_execute();
 	else if (c == NEXT_LINE)
 		next_line_execute();
 	else if (c < 256)

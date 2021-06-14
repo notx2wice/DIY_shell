@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 17:06:43 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/14 15:10:53 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ void					print_prompt(void);
 int						putchar_tc(int tc);
 void					cursor_win(void);
 void					get_cursor_position(int *col, int *rows);
+void					backspace_execute();
 void					delete_end();
-void					just_delete_end();
 void					init_all(char **env);
 void					init_term(void);
 void					init_s_two(t_split_two **two);
