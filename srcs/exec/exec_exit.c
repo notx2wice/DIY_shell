@@ -3,33 +3,111 @@
 /*                                                        :::      ::::::::   */
 /*   exec_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:11 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:45:59 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/15 14:31:38 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		chk_arg_digit(char *val)
+int			ft_isnum(char *str)
 {
 	int i;
 
 	i = 0;
-	if (val)
+	if (str)
 	{
-		while (val[i])
+		while (str[i])
 		{
-			if (!ft_isdigit(val[i]))
+			if (!ft_isdigit(str[i]))
 				return (0);
 			i++;
 		}
 	}
+	else
+		return (-1);
 	return (1);
 }
 
-int		exec_exit(t_split_two *cmd)
+int			ft_iszero(char *str)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	if (str[i] == '-')
+	{
+		i++;
+		flag = 1;
+	}
+	while (str[i])
+	{
+		if (str[i] != '0')
+			return (0);
+		i++;
+	}
+	if (i == 0)
+		return (0);
+	if (flag == 1 && i == 1)
+		return (0);
+	return (1);
+}
+
+long long	ft_atoll(const char *str)
+{
+	unsigned long long	num;
+	int					sign;
+
+	num = 0;
+	sign = 1;
+	while (is_space(*str))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign *= -1;
+		str++;
+	}
+	while (*str && ft_isdigit(*str))
+	{
+		num *= 10;
+		num += *str - '0';
+		str++;
+	}
+	if (sign == 1 && num > (unsigned long long)LLONG_MAX)
+		return (sign == 1 ? -1 : 0);
+	if (sign != 1 && num > (unsigned long long)LLONG_MAX + 1)
+		return (sign == 1 ? -1 : 0);
+	return (sign * num);
+}
+
+int			chk_arg_digit(char *val)
+{
+	char			*str;
+	int				str_length;
+	long long		atoi_result;
+
+	str = val;
+	if (str[0] == '-')
+	{
+		if (ft_isnum(&val[1]) <= 0)
+			return (0);
+	}
+	str_length = ft_strlen(val);
+	atoi_result = ft_atoll(val);
+	if (atoi_result > 0 || atoi_result < -1)
+		return (1);
+	if (ft_strcmp(str, "-1") == 0)
+		return (1);
+	if (ft_iszero(str) == 1)
+		return (1);
+	return (0);
+}
+
+int			exec_exit(t_split_two *cmd)
 {
 	int cnt_arg;
 	int	isdigit;
