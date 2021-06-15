@@ -6,14 +6,14 @@
 /*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 19:41:09 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/15 14:32:15 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/15 15:20:34 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <limits.h>
 
-int	is_space(int c)
+int			is_space(int c)
 {
 	if (c == ' ' ||
 		c == '\n' ||

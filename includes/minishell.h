@@ -6,7 +6,7 @@
 /*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/15 14:29:38 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/15 15:20:22 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define PROMPT_SIZE 6
 # define EXIT_SUCCESS 0
 # define LLONG_MAX 9223372036854775807
+
 typedef struct			s_redir
 {
 	int					out_flag;
@@ -248,4 +249,8 @@ void					add_new_hist();
 void					not_builtin_fork(t_split_two *cmd);
 int						count_pipes(t_split_two *cmd);
 int						ft_isnum(char *str);
+int						ft_iszero(char *str);
+long long				ft_atoll(const char *str);
+int						chk_arg_digit(char *val);
+
 #endif
