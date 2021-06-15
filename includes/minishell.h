@@ -6,7 +6,11 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/06/15 15:45:03 by ukim             ###   ########.fr       */
+=======
+/*   Updated: 2021/06/15 15:20:22 by seapark          ###   ########.fr       */
+>>>>>>> b1962f4784bea3a72da6070120e623668755ea27
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +44,7 @@
 # define BUFFS 5000
 # define PROMPT_SIZE 6
 # define EXIT_SUCCESS 0
+# define LLONG_MAX 9223372036854775807
 
 typedef struct			s_redir
 {
