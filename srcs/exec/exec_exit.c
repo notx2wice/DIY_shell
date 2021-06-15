@@ -6,7 +6,7 @@
 /*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:11 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/15 16:28:19 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/15 17:00:39 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,17 @@ int			ft_isnum(char *str)
 int			ft_iszero(char *str)
 {
 	int	i;
-	int	flag;
 
 	i = 0;
-	flag = 0;
-	if (str[i] == '-')
-	{
-		i++;
-		flag = 1;
-	}
 	while (str[i])
 	{
 		if (str[i] != '0')
-			return (0);
+			break ;
 		i++;
 	}
 	if (i == 0)
 		return (0);
-	if (flag == 1 && i == 1)
-		return (0);
-	return (1);
+	return (i);
 }
 
 long long	ft_atoll(const char *str)
@@ -88,20 +79,23 @@ int			chk_arg_digit(char *val)
 {
 	char				*str;
 	long long			atoi_result;
-	size_t				minus;
+	size_t				zero_length;
 
 	str = val;
-	if (ft_iszero(str) == 1)
-		return (1);
-	minus = 0;
 	if (str[0] == '-')
-		minus = 1;
-	if (ft_isnum(&val[minus]) <= 0 || ft_strlen(val) > 19 + minus)
+		str = &str[1];
+	if (ft_isnum(str) <= 0)
+		return (0);
+	zero_length = ft_iszero(str);
+	if (zero_length == ft_strlen(str))
+		return (1);
+	str = &str[zero_length];
+	if (ft_strlen(str) > 19)
 		return (0);
 	atoi_result = ft_atoll(val);
 	if (atoi_result > 0 || atoi_result < -1)
 		return (1);
-	if (ft_strcmp(str, "-1") == 0)
+	if (ft_strcmp(str, "1") == 0 && val[0] == '-')
 		return (1);
 	return (0);
 }
