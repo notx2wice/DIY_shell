@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 20:38:59 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/13 16:10:38 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/15 15:44:56 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,18 @@ void			free_two(t_split_two **two)
 		free(free_temp);
 	}
 	*two = NULL;
+}
+
+int				return_free_one_two(t_split_one **one, t_split_two **two)
+{
+	syntax_error();
+	free_one(one);
+	free_two(two);
+	return (0);
+}
+
+int				free_return(t_redir *redir)
+{
+	free(redir);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/14 15:10:53 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/15 15:45:03 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define UP_ARROW 4283163
 # define DOWN_ARROW 4348699
 # define NEXT_LINE 10
-# define BUFFS 4000
+# define BUFFS 5000
 # define PROMPT_SIZE 6
 # define EXIT_SUCCESS 0
 
@@ -247,5 +247,7 @@ void					sighandler(int sig_num);
 void					add_new_hist();
 void					not_builtin_fork(t_split_two *cmd);
 int						count_pipes(t_split_two *cmd);
+int						return_free_one_two(t_split_one **one, t_split_two **two);
+int						free_return(t_redir *redir);
 
 #endif

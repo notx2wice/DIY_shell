@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 17:26:53 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/13 15:46:51 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/15 14:12:03 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void			when_in_flag(t_redir **n_re, t_split_two **lt, t_redir *tmp_re)
 	(*n_re) = (t_redir*)malloc(sizeof(t_redir));
 	init_redir_list(n_re);
 	(*n_re)->in_flag = 1;
+	free((*n_re)->str);
 	(*n_re)->str = tmp_re->str;
 	tmp_re->str = NULL;
 	add_back_redir(&(*lt)->redir_in, (*n_re));
@@ -59,6 +60,7 @@ void			when_out_flag(t_redir **n_re, t_split_two **lt, t_redir *tmp_re)
 		(*n_re)->out_flag = 1;
 	else
 		(*n_re)->d_out_flag = 1;
+	free((*n_re)->str);
 	(*n_re)->str = tmp_re->str;
 	tmp_re->str = NULL;
 	add_back_redir(&(*lt)->redir_out, *n_re);
