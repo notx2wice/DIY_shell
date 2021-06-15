@@ -6,7 +6,7 @@
 /*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:11 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/15 16:09:54 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/15 16:25:42 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,20 @@ int			chk_arg_digit(char *val)
 {
 	char			*str;
 	long long		atoi_result;
+	int				minus;
 
 	str = val;
+	if (ft_iszero(str) == 1)
+		return (1);
+	minus = 0;
 	if (str[0] == '-')
-	{
-		if (ft_isnum(&val[1]) <= 0 || ft_strlen(val) > 20)
-			return (0);
-	}
-	else
-	{
-		if (ft_isnum(&val[0]) <= 0 || ft_strlen(val) > 19)
-			return (0);
-	}
+		minus = 1;
+	if (ft_isnum(&val[minus]) <= 0 || ft_strlen(val) > 19 + minus)
+		return (0);
 	atoi_result = ft_atoll(val);
 	if (atoi_result > 0 || atoi_result < -1)
 		return (1);
 	if (ft_strcmp(str, "-1") == 0)
-		return (1);
-	if (ft_iszero(str) == 1)
 		return (1);
 	return (0);
 }
