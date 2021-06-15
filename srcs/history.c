@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 16:41:57 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:42:55 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/14 16:33:27 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void				add_new_hist(void)
 	copy_hist(&g_all.thist_now, &g_all.hist_now);
 	g_all.hist_last->prev->next = temp;
 	temp->prev = g_all.hist_last->prev;
+	free_t_hist(&g_all.hist_last);
 	g_all.hist_last = temp;
 	g_all.hist_now = g_all.hist_last;
 }

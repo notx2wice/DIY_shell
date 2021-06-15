@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:58:38 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 17:20:10 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/15 15:42:32 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,19 @@ int				case_in_redir(t_cmd_list **tmp_cmd, t_split_two **lt)
 
 	tr = (t_redir*)malloc(sizeof(t_redir));
 	init_redir_list(&tr);
+	free(tr->str);
+	(*tmp_cmd)->disable = 1;
+	tr->in_flag = 1;
 	if ((*tmp_cmd)->str[1])
-	{
-		(*tmp_cmd)->disable = 1;
-		tr->in_flag = 1;
 		tr->str = ft_substr((*tmp_cmd)->str, 1, ft_strlen((*tmp_cmd)->str) - 1);
-	}
 	else
 	{
 		if ((*tmp_cmd)->next == NULL)
-			return (0);
-		(*tmp_cmd)->disable = 1;
-		tr->in_flag = 1;
+			return (free_return(tr));
 		(*tmp_cmd) = (*tmp_cmd)->next;
 		if (ft_strncmp((*tmp_cmd)->str, "<", 1) == 0 \
 		|| ft_strncmp((*tmp_cmd)->str, ">", 1) == 0)
-			return (0);
+			return (free_return(tr));
 		(*tmp_cmd)->disable = 1;
 		tr->str = ft_strdup((*tmp_cmd)->str);
 	}
@@ -47,22 +44,19 @@ int				case_out_redir(t_cmd_list **tmp_cmd, t_split_two **lt)
 
 	tr = (t_redir*)malloc(sizeof(t_redir));
 	init_redir_list(&tr);
+	free(tr->str);
+	(*tmp_cmd)->disable = 1;
+	tr->out_flag = 1;
 	if ((*tmp_cmd)->str[1])
-	{
-		(*tmp_cmd)->disable = 1;
-		tr->out_flag = 1;
 		tr->str = ft_substr((*tmp_cmd)->str, 1, ft_strlen((*tmp_cmd)->str) - 1);
-	}
 	else
 	{
 		if ((*tmp_cmd)->next == NULL)
-			return (0);
-		(*tmp_cmd)->disable = 1;
-		tr->out_flag = 1;
+			return (free_return(tr));
 		(*tmp_cmd) = (*tmp_cmd)->next;
 		if (ft_strncmp((*tmp_cmd)->str, "<", 1) == 0 || \
 		ft_strncmp((*tmp_cmd)->str, ">", 1) == 0)
-			return (0);
+			return (free_return(tr));
 		(*tmp_cmd)->disable = 1;
 		tr->str = ft_strdup((*tmp_cmd)->str);
 	}
@@ -76,22 +70,19 @@ int				case_d_out_redir(t_cmd_list **tmp_cmd, t_split_two **lt)
 
 	tr = (t_redir*)malloc(sizeof(t_redir));
 	init_redir_list(&tr);
+	free(tr->str);
+	(*tmp_cmd)->disable = 1;
+	tr->d_out_flag = 1;
 	if ((*tmp_cmd)->str[2])
-	{
-		(*tmp_cmd)->disable = 1;
-		tr->d_out_flag = 1;
 		tr->str = ft_substr((*tmp_cmd)->str, 2, ft_strlen((*tmp_cmd)->str) - 2);
-	}
 	else
 	{
 		if ((*tmp_cmd)->next == NULL)
-			return (0);
-		(*tmp_cmd)->disable = 1;
-		tr->d_out_flag = 1;
+			return (free_return(tr));
 		(*tmp_cmd) = (*tmp_cmd)->next;
 		if (ft_strncmp((*tmp_cmd)->str, "<", 1) == 0 || \
 		ft_strncmp((*tmp_cmd)->str, ">", 1) == 0)
-			return (0);
+			return (free_return(tr));
 		(*tmp_cmd)->disable = 1;
 		tr->str = ft_strdup((*tmp_cmd)->str);
 	}

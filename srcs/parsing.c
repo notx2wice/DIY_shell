@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:29:54 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/13 15:42:44 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/15 15:44:34 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,13 @@ t_split_two		*parsing(char *str_ori)
 	first_two = NULL;
 	init_cmd(&last_cmd, &first_cmd);
 	if (divide_with_ptqd(&first_cmd, &last_cmd, str_ori) == 0)
-	{
-		syntax_error();
-		return (NULL);
-	}
+		return_free_one_two(&first_cmd, &first_two);
 	make_strend_null(&first_cmd, &last_cmd);
 	change_dollar_in_dq(&first_cmd, &last_cmd);
 	change_dollar_in_cmd(&first_cmd, &last_cmd);
 	make_two_by_one(&first_cmd, &last_cmd, &first_two, &last_two);
 	if (make_redir_total(&first_two, &last_two) == 0)
-	{
-		syntax_error();
-		return (NULL);
-	}
+		return_free_one_two(&first_cmd, &first_two);
 	make_list_2d_arr(&first_two, &last_two);
 	make_in_out_r_lst(&first_two, &last_two, &first_cmd);
 	return (first_two);

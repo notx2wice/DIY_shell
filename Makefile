@@ -30,7 +30,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 		@make -C $(LIBDIR)
-		@$(CC) -lncurses $(CFLAG) $(OBJ) $(HEADER) $(LIBS) -o $@
+		@$(CC) -lncurses -g $(CFLAG) $(OBJ) $(HEADER) $(LIBS) -o $@
 
 clean:
 		@/bin/rm -rf $(OBJ)
