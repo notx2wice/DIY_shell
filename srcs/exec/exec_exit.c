@@ -6,7 +6,7 @@
 /*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:11 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/15 16:25:42 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/15 16:28:19 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ long long	ft_atoll(const char *str)
 
 int			chk_arg_digit(char *val)
 {
-	char			*str;
-	long long		atoi_result;
-	int				minus;
+	char				*str;
+	long long			atoi_result;
+	size_t				minus;
 
 	str = val;
 	if (ft_iszero(str) == 1)
