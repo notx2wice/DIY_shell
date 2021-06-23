@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   termcap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 11:40:56 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 17:40:11 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/23 16:05:14 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	set_term_flag(int flag)
+{
+	if (flag)
+	{
+		g_all.tc.term.c_lflag |= ICANON;
+		g_all.tc.term.c_lflag |= ECHO;
+	}
+	else
+	{
+		g_all.tc.term.c_lflag &= ~ICANON;
+		g_all.tc.term.c_lflag &= ~ECHO;
+	}
+	tcsetattr(0, TCSANOW, &g_all.tc.term);
+}
 
 void	init_term(void)
 {

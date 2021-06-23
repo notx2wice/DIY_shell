@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:33:36 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/14 17:55:35 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/23 16:05:43 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,12 @@ void			next_line_execute(void)
 	g_all.hist_now->data.tcarr[g_all.hist_now->data.top] = '\0';
 	now_cmd = parsing(g_all.hist_now->data.tcarr);
 	write(1, "\n", 1);
-	g_all.tc.term.c_lflag |= ICANON;
-	tcsetattr(0, TCSANOW, &g_all.tc.term);
+	set_term_flag(1);
 	if (now_cmd != NULL)
 		exec_command(now_cmd);
 	free_two(&now_cmd);
 	print_prompt();
-	g_all.tc.term.c_lflag &= ~ICANON;
-	tcsetattr(0, TCSANOW, &g_all.tc.term);
+	set_term_flag(0);
 	re_init_thist();
 }
 

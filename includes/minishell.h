@@ -6,7 +6,7 @@
 /*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:43:30 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/15 16:26:01 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/23 16:04:24 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,5 +251,6 @@ int						count_pipes(t_split_two *cmd);
 int						return_free_one_two(t_split_one **one, \
 t_split_two **two);
 int						free_return(t_redir *redir);
+void					set_term_flag(int flag);
 
 #endif
