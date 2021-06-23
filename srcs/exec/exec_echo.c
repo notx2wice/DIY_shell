@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukim <ukim@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:06 by ukim              #+#    #+#             */
-/*   Updated: 2021/05/03 18:30:45 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/23 16:43:16 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,32 @@ void	print_val(t_split_two *cmd, int i, int cnt)
 	}
 }
 
+int		until_not_n(t_split_two *cmd)
+{
+	t_split_two	*temp;
+	int			idx;
+	int			tdx;
+
+	idx = 1;
+	temp = cmd;
+	while (temp->cmd[idx])
+	{
+		tdx = 0;
+		if (temp->cmd[idx][tdx] == '-')
+			tdx++;
+		else
+			return (idx);
+		while (temp->cmd[idx][tdx])
+		{
+			if (temp->cmd[idx][tdx] != 'n')
+				return (idx);
+			tdx++;
+		}
+		idx++;
+	}
+	return (idx);
+}
+
 int		exec_echo(t_split_two *cmd)
 {
 	t_env	*env;
@@ -60,8 +86,8 @@ int		exec_echo(t_split_two *cmd)
 
 	env = g_all.env_first;
 	cnt_arg = chk_arg_cnt(cmd);
-	if (cnt_arg > 2 && ft_strcmp(cmd->cmd[1], "-n") == 0)
-		print_val(cmd, 2, cnt_arg);
+	if (until_not_n(cmd) > 1)
+		print_val(cmd, until_not_n(cmd), cnt_arg);
 	else
 	{
 		print_val(cmd, 1, cnt_arg);

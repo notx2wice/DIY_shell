@@ -6,7 +6,7 @@
 /*   By: ukim <ukim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:18 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/12 16:43:11 by ukim             ###   ########.fr       */
+/*   Updated: 2021/06/23 16:22:24 by ukim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int		exec_unset(t_split_two *cmd)
 	i = 1;
 	while (cmd->cmd[i])
 	{
-		remove_env(cmd->cmd[i]);
+		if (ft_isdigit(cmd->cmd[i][0]))
+			not_valid_idt(cmd, cmd->cmd[i], 1);
+		else
+			remove_env(cmd->cmd[i]);
 		i++;
 	}
 	return (0);
