@@ -1,7 +1,0 @@
-{
-    "editor.renderWhitespace": "all",
-    "files.associations": {
-        "minishell.h": "c",
-        "curses.h": "c"
-    }
-}
