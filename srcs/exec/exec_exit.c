@@ -6,7 +6,7 @@
 /*   By: seapark <seapark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:52:11 by ukim              #+#    #+#             */
-/*   Updated: 2021/06/15 17:00:39 by seapark          ###   ########.fr       */
+/*   Updated: 2021/06/23 16:00:21 by seapark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,19 +105,19 @@ int			exec_exit(t_split_two *cmd)
 	int cnt_arg;
 	int	isdigit;
 
-	cnt_arg = chk_arg_cnt(cmd);
-	isdigit = chk_arg_digit(cmd->cmd[1]);
 	if (cmd->cmd[1])
 	{
-		if (isdigit == 0)
-		{
-			ft_putstr_fd("exit\n", 1);
-			exit(num_arg_error(cmd, 255));
-		}
+		cnt_arg = chk_arg_cnt(cmd);
 		if (cnt_arg > 2)
 		{
 			ft_putstr_fd("exit\n", 1);
 			return (too_many_arg_error(cmd, 1));
+		}
+		isdigit = chk_arg_digit(cmd->cmd[1]);
+		if (isdigit == 0)
+		{
+			ft_putstr_fd("exit\n", 1);
+			exit(num_arg_error(cmd, 255));
 		}
 		ft_putstr_fd("exit\n", 1);
 		exit(ft_atoi(cmd->cmd[1]));
